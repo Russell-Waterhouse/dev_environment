@@ -7,18 +7,18 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs: {
-    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-    defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
- 
-    homeConfigurations = {
-	    # TODO: Modify "your.username" below to match your username
-      "russ" = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "/home/russ";
-        username = "russ";
-        configuration.imports = [ ./home.nix ];
+  outputs = { nixpkgs, home-manager, ... }:
+    let lib =
+      nixpkgs.lib;
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in {
+      homeConfigurations = {
+        myprofile = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modeules = [ ./home.nix ];
+        };
       };
     };
-  };
+ 
 }
