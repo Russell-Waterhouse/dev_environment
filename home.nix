@@ -18,8 +18,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
     pkgs.cowsay
     pkgs.figlet
     pkgs.fastfetch
@@ -34,8 +32,7 @@
     pkgs.tmux
     pkgs.tree
     pkgs.zoxide
-
-    
+    # pkgs.warp-terminal # TODO: Add this back when I can figure out how to get nonfree software to work
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
