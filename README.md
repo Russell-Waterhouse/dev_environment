@@ -24,7 +24,8 @@ nix run home-manager/master -- init --switch
 
 run 
 ```
-home-manager switch
+cd ~/.config/home-manager
+home-manager switch --flake .
 ```
 
 ## How to find more
