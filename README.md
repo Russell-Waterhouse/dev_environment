@@ -12,6 +12,16 @@ I have no idea what I'm doing, I'm investigating a technology that I think solve
 2. Clone this repo to your `~/.config` directory and rename it to `home-manager`
 3. TODO
 
+I THINK what I should do next is run: 
+```
+cd ~/.config/home-manager
+nix-shell -p home-manager
+```
+and in the shell that spawns, run: 
+```
+home-manager switch --flake .
+```
+But I haven't tested that yet. 
 
 ## How I set this up
 
