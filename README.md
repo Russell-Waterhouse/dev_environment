@@ -9,10 +9,12 @@ I have no idea what I'm doing, I'm investigating a technology that I think solve
 ## How to use this configuration
 
 1. Install the nix package manager from https://nixos.org/download/
-2. Clone this repo to your `~/.config` directory and rename it to `home-manager`
-3. TODO
-
-I THINK what I should do next is run: 
+2. Enaable flakes by creating `~/.config/nix/nix.conf` and adding the following line to it
+```
+experimental-features = nix-command flakes
+```
+4. Clone this repo to your `~/.config` directory and renmae it `home-manager`
+5. Run home-manager in a nix-shell to do the initial setup
 ```
 cd ~/.config/home-manager
 nix-shell -p home-manager
@@ -21,7 +23,6 @@ and in the shell that spawns, run:
 ```
 home-manager switch --flake .
 ```
-But I haven't tested that yet. 
 
 ## How I set this up
 
