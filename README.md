@@ -13,7 +13,7 @@ I have no idea what I'm doing, I'm investigating a technology that I think solve
 ```
 experimental-features = nix-command flakes
 ```
-4. Clone this repo to your `~/.config` directory
+4. Clone this repo to your `~/.config` directory and renmae it `home-manager`
 5. Run home-manager in a nix-shell to do the initial setup
 ```
 cd ~/.config/home-manager
