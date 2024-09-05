@@ -1,1 +1,1 @@
-home-manager build --flake .
+home-manager switch --flake .

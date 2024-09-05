@@ -38,6 +38,7 @@ PATH="$PATH:$HOME/.jdks/openjdk-20.0.2/bin/"
 PATH="$PATH:/usr/share/gems:$HOME/.local/share/gem/ruby:/usr/local/share/gems"
 PATH="$PATH:$HOME/.local/share/gem/ruby/3.3.0/bin"
 PATH="$PATH:$HOME/bin/"
+GEM_PATH="$GEM_PATH:$HOME/.local/share/gem/ruby/3.3.0/bin"
 
 #ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
