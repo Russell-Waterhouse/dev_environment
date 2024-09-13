@@ -1,1 +1,1 @@
-home-manager switch --flake .
+git add -A && home-manager switch --flake .
