@@ -37,7 +37,6 @@
     pkgs.fd
     pkgs.vscode
     pkgs.hollywood
-    pkgs.python313
     # pkgs.ruby_3_3
 
     # TODO: add and configure docker
