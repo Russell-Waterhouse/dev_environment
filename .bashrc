@@ -128,6 +128,9 @@ alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
 alias ta='tmux attach'
 
+alias edit='sudo vim /etc/nixos/configuration.nix'
+alias rebuild='sudo nixos-rebuild switch'
+
 # Show the current git branch in the terminal prompt
 # Prompt
 export PS1="\\w[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)]\$ "

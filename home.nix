@@ -91,6 +91,13 @@
     };
   };
 
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+    userName = "Russell-Waterhouse";
+    userEmail = "Russell.L.Waterhouse@gmail.com";
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
