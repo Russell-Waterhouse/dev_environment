@@ -71,11 +71,11 @@ lsp["lua_ls"].setup({
 }
 })
 
-lsp['hls'].setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { 'haskell', 'lhaskell', 'cabal' },
-}
+-- lsp['hls'].setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     filetypes = { 'haskell', 'lhaskell', 'cabal' },
+-- }
 
 lsp['clangd'].setup{
     capabilities = capabilities,
