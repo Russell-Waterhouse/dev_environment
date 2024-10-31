@@ -96,6 +96,9 @@
     lfs.enable = true;
     userName = "Russell-Waterhouse";
     userEmail = "Russell.L.Waterhouse@gmail.com";
+    extraConfig= {
+      pull.rebase = false;
+    };
   };
 
   # Let Home Manager install and manage itself.
