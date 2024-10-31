@@ -8,8 +8,10 @@ opt.number = true
 opt.wrap = true
 
 -- tabs and indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
+-- Two because I can hit tab twice to get to the next tabstop
+-- But backspacing from 4 is a pain
+opt.tabstop = 2
+opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
 
