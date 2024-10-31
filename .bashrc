@@ -130,6 +130,7 @@ alias ta='tmux attach'
 
 alias edit='sudo vim /etc/nixos/configuration.nix'
 alias rebuild='sudo nixos-rebuild switch'
+alias update-nix='nix-channel --update && sudo nixos-rebuild switch --upgrade'
 
 # Show the current git branch in the terminal prompt
 # Prompt
