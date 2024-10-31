@@ -128,9 +128,9 @@ alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
 alias ta='tmux attach'
 
-alias edit='sudo vim /etc/nixos/configuration.nix'
-alias rebuild='sudo nixos-rebuild switch'
-alias update-nix='nix-channel --update && sudo nixos-rebuild switch --upgrade'
+alias edit='nvim /home/russ/.config/nixos/configuration.nix'
+alias rebuild='sudo nixos-rebuild switch -I nixos-config=/home/russ/.config/nixos/configuration.nix'
+alias update-nix='nix-channel --update && sudo nixos-rebuild switch -I nixos-config=/home/russ/.config/nixos/configuration.nix --upgrade'
 
 # Show the current git branch in the terminal prompt
 # Prompt

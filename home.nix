@@ -98,6 +98,7 @@
     userEmail = "Russell.L.Waterhouse@gmail.com";
     extraConfig= {
       pull.rebase = false;
+      init.defaultBranch = "main";
     };
   };
 
