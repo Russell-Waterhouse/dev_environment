@@ -67,7 +67,7 @@ gpu() {
 }
 gcam() {
     git add -A
-    git commit -m "$*" && git push
+    git commit -m "$*" && git pull && git push
 }
 gcamu() {
     git add -A
