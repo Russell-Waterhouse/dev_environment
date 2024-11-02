@@ -135,7 +135,6 @@ alias update-nix='nix-channel --update && sudo nixos-rebuild switch -I nixos-con
 # Show the current git branch in the terminal prompt
 # Prompt
 export PS1="\\w[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)]\$ "
-. "$HOME/.cargo/env"
 
 # set up zoxide for navigation
 eval "$(zoxide init bash)"
