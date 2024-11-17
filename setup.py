@@ -67,12 +67,13 @@ def run_command(command):
     """Helper function to run shell commands."""
     subprocess.run(command, shell=True, check=True)
 
-def set_up_groups():
+
+def setup_groups():
     groups = ["docker", "uinput"]
-    
+
     # Get the current user's groups
     user_groups = subprocess.check_output("groups", shell=True).decode().strip().split()
-    
+
     for group in groups:
         # Check if the user is already in the group
         if group not in user_groups:
@@ -82,19 +83,35 @@ def set_up_groups():
         else:
             print(f"User is already in the '{group}' group.")
 
-# Function to run a shell command and check for errors
-def run_command(command):
-    try:
-        subprocess.run(command, check=True, shell=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error running command: {command}")
-        print(e)
 
-# 1. Install packages with dnf
 def install_packages():
-    for package in packages:
-        print(f"Installing package: {package}")
-        run_command(f"sudo dnf install -y {package}")
+    try:
+        # Get the list of installed packages using `dnf list installed`
+        installed_packages = subprocess.check_output(
+            ['dnf', 'list', '--installed'], text=True
+        ).splitlines()
+        # Extract just the package names (first column) from the output
+        # installed_packages = {line.split()[0] for line in installed_packages[1:]}  # skip the header line
+        # installed_packages = []
+        # breakpoint()
+        installed = []
+        for line in installed_packages[1:]:
+            package = line.split('.')[0]
+            installed.append(package)
+        # Iterate over the list of packages to install
+        for package in packages:
+            # If the package is not installed, install it
+            if package not in installed:
+                print(f"Installing package: {package}")
+                run_command(f"sudo dnf install -y {package}")
+            else:
+                print(f"Package {package} is already installed.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error running dnf: {e}")
+        print(f"Command output: {e.output}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
 
 # 2. Set environment variables (for example, `EDITOR=nvim`)
 def set_environment_variables():
@@ -111,7 +128,7 @@ def set_environment_variables():
     with open(bashrc_path, "w") as bashrc_file:
         bashrc_file.write(bashrc_content)
 
-# 3. Configure Git settings
+
 def configure_git():
     print("Configuring Git settings...")
     run_command(f"git config --global user.name \"{git_user_name}\"")
@@ -120,7 +137,7 @@ def configure_git():
     for key, value in git_extra_config.items():
         run_command(f"git config --global {key} {value}")
 
-# 4. Create necessary directories and copy files
+
 def copy_files():
     print("Copying configuration files...")
     
@@ -140,6 +157,7 @@ def copy_files():
         else:
             print(f"Source file {src} not found. Skipping.")
 
+
 def set_up_workspaces():
     run_command("gsettings set org.gnome.mutter dynamic-workspaces false")
     run_command("gsettings set org.gnome.desktop.wm.preferences num-workspaces 9")
@@ -148,18 +166,26 @@ def set_up_workspaces():
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"switch-to-workspace-{i}\" \"['<Super>{i}']\"")
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"move-to-workspace-{i}\" \"['<Super><Shift>{i}']\"")
 
+
+def setup_tpm():
+    tpm_dir = os.path.expanduser('~/.tmux/plugins/tpm')
+    if not os.path.isdir(tpm_dir):
+        run_command("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
+
+
 # Main function to execute the steps
 def main():
     install_packages()
     set_environment_variables()
     configure_git()
     copy_files()
-    set_up_groups()
+    setup_groups()
     set_up_workspaces()
+    setup_tpm()
 
     print("Setup completed successfully!")
+
 
 # Run the script
 if __name__ == "__main__":
     main()
-
