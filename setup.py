@@ -38,7 +38,6 @@ packages = [
     "zoxide",
     "cmatrix",
     "ripgrep",
-    "fd",
     "gcc",
     "alacritty",
     "nodejs",
@@ -172,6 +171,32 @@ def setup_tpm():
     if not os.path.isdir(tpm_dir):
         run_command("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
 
+def setup_docker_desktop():
+    docker_desktop_install_path = "/opt/docker-desktop"
+    if os.path.exists(docker_desktop_install_path):
+        print("Docker desktop is already installed!")
+        return
+
+    run_command("sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine")
+    run_command("sudo dnf -y install dnf-plugins-core")
+    run_command("sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo")
+    run_command("sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
+    run_command("sudo systemctl enable --now docker")
+    run_command("cd /tmp \
+            && wget https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64&_gl=1*1vay6q9*_gcl_au*MTYyNjgxOTM1MC4xNzMyMjI3MzI4*_ga*MTc5Njk0NTM1OS4xNzMyMjI3MzI5*_ga_XJWPQMJYHQ*MTczMjIyNzMyOS4xLjEuMTczMjIyODI3OS41MS4wLjA. \
+            && sudo dnf install -y ./'docker-desktop-x86_64.rpm?utm_source=docker' \
+            && rm -rf ./'docker-desktop-x86_64.rpm?utm_source=docker' \
+            && cd -")
+
 
 # Main function to execute the steps
 def main():
@@ -182,6 +207,7 @@ def main():
     setup_groups()
     set_up_workspaces()
     setup_tpm()
+    setup_docker_desktop()
 
     print("Setup completed successfully!")
 
