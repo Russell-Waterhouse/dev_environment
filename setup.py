@@ -4,7 +4,7 @@ import os
 import subprocess
 
 # List of packages to install via DNF
-packages = [
+dnf_packages = [
     "cowsay",
     "figlet",
     "fastfetch",
@@ -29,21 +29,15 @@ packages = [
     "hugo",
     "jq",
     "ncdu",
-    "neovim",
-    "git",
-    "git-lfs",
-    "tldr",
-    "tmux",
-    "tree",
-    "zoxide",
-    "cmatrix",
-    "ripgrep",
     "gcc",
     "alacritty",
     "nodejs",
     "python3"
 ]
 
+flatpak_packages = [
+    "AzureStorageExplorer",
+]
 # Define paths
 user = "russ"
 home_directory = f"/home/{user}"
@@ -98,13 +92,16 @@ def install_packages():
             package = line.split('.')[0]
             installed.append(package)
         # Iterate over the list of packages to install
-        for package in packages:
+        for package in dnf_packages:
             # If the package is not installed, install it
             if package not in installed:
                 print(f"Installing package: {package}")
                 run_command(f"sudo dnf install -y {package}")
             else:
                 print(f"Package {package} is already installed.")
+        for package in flatpak_packages:
+            print(f"Installing package: {package}")
+            run_command(f"flatpak install -y {package}")
     except subprocess.CalledProcessError as e:
         print(f"Error running dnf: {e}")
         print(f"Command output: {e.output}")
@@ -119,10 +116,10 @@ def set_environment_variables():
     if os.path.exists(bashrc_path):
         with open(bashrc_path, "r") as bashrc_file:
             bashrc_content = bashrc_file.read()
-    
+
     # Add the EDITOR environment variable
     bashrc_content += f"\nexport EDITOR={editor}\n"
-    
+
     # Save back to the file
     with open(bashrc_path, "w") as bashrc_file:
         bashrc_file.write(bashrc_content)
@@ -132,14 +129,14 @@ def configure_git():
     print("Configuring Git settings...")
     run_command(f"git config --global user.name \"{git_user_name}\"")
     run_command(f"git config --global user.email \"{git_user_email}\"")
-    
+
     for key, value in git_extra_config.items():
         run_command(f"git config --global {key} {value}")
 
 
 def copy_files():
     print("Copying configuration files...")
-    
+
     # Example paths for the configuration files
     config_files = {
         ".bashrc": bashrc_path,
@@ -147,7 +144,7 @@ def copy_files():
         "nvim": nvim_config_path,
         "tmux": tmux_config_path
     }
-    
+
     for src, dest in config_files.items():
         if os.path.exists(src):
             print(f"Copying {src} to {dest}")
@@ -160,7 +157,7 @@ def copy_files():
 def set_up_workspaces():
     run_command("gsettings set org.gnome.mutter dynamic-workspaces false")
     run_command("gsettings set org.gnome.desktop.wm.preferences num-workspaces 9")
-    for i in range(1, 9):
+    for i in range(1, 10):
         run_command(f"gsettings set \"org.gnome.shell.keybindings\" \"switch-to-application-{i}\" \"[]\"")
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"switch-to-workspace-{i}\" \"['<Super>{i}']\"")
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"move-to-workspace-{i}\" \"['<Super><Shift>{i}']\"")
@@ -198,6 +195,15 @@ def setup_docker_desktop():
             && cd -")
 
 
+def install_k8s_lens():
+    if os.path.exists("/usr/bin/lens-desktop"):
+        print("Lens desktop is already installed")
+        return
+    print("Installing Lens desktop")
+    run_command("sudo dnf config-manager addrepo --from-repofile=https://downloads.k8slens.dev/rpm/lens.repo")
+    run_command("sudo dnf install -y lens")
+
+
 # Main function to execute the steps
 def main():
     install_packages()
@@ -208,6 +214,7 @@ def main():
     set_up_workspaces()
     setup_tpm()
     setup_docker_desktop()
+    install_k8s_lens()
 
     print("Setup completed successfully!")
 
