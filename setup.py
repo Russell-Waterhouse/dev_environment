@@ -204,6 +204,23 @@ def install_k8s_lens():
     run_command("sudo dnf install -y lens")
 
 
+def install_kubectl():
+    if (subprocess.run('which kubectl', shell=True, check=False) == 0):
+        print("kubectl is already installed")
+        return
+    print("Installing kubectl")
+    run_command("""
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+EOF""")
+    run_command("sudo yum install -y kubectl")
+
+
 # Main function to execute the steps
 def main():
     install_packages()
@@ -214,6 +231,7 @@ def main():
     set_up_workspaces()
     setup_tpm()
     setup_docker_desktop()
+    install_kubectl()
     install_k8s_lens()
 
     print("Setup completed successfully!")
