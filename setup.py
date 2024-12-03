@@ -21,7 +21,7 @@ dnf_packages = [
     "zoxide",
     "cmatrix",
     "ripgrep",
-    "fd",
+    "fd-find",
     "vim",
     "unzip",
     "wget",
@@ -223,10 +223,12 @@ EOF""")
 
 # Main function to execute the steps
 def main():
+    # copy files must be run first because other commands will try to modify .bashrc
+    # such as installing fd
+    copy_files()
     install_packages()
     set_environment_variables()
     configure_git()
-    copy_files()
     setup_groups()
     set_up_workspaces()
     setup_tpm()
