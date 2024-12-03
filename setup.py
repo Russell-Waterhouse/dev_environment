@@ -221,10 +221,21 @@ EOF""")
     run_command("sudo yum install -y kubectl")
 
 
+def install_vs_code():
+    if (subprocess.run('which code', shell=True, check=False) == 0):
+        print("VS Code is already installed")
+        return
+    print("Installing VS Code")
+    run_command("sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc")
+    run_command('echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null')
+    # run_command('dnf check-update') # TODO: I don't think this is necessary, and it returns nonzero exit status
+    run_command('sudo dnf install code')
+
+
 # Main function to execute the steps
 def main():
-    # copy files must be run first because other commands will try to modify .bashrc
-    # such as installing fd
+    # copy files must be run first because other commands will try to modify
+    # .bashrc such as installing fd
     copy_files()
     install_packages()
     set_environment_variables()
@@ -235,6 +246,7 @@ def main():
     setup_docker_desktop()
     install_kubectl()
     install_k8s_lens()
+    install_vs_code()
 
     print("Setup completed successfully!")
 
