@@ -221,6 +221,15 @@ EOF""")
     run_command("sudo yum install -y kubectl")
 
 
+def install_az_cli():
+    if (subprocess.run('which az', shell=True, check=False) == 0):
+        print("az cli is already installed")
+        return
+    run_command('sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc')
+    run_command('sudo dnf install -y https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm')
+    run_command('sudo dnf install -y azure-cli')
+
+
 # Main function to execute the steps
 def main():
     install_packages()
@@ -233,6 +242,7 @@ def main():
     setup_docker_desktop()
     install_kubectl()
     install_k8s_lens()
+    install_az_cli()
 
     print("Setup completed successfully!")
 
