@@ -89,7 +89,15 @@ lsp['ts_ls'].setup{
 
 lsp['pylsp'].setup{
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+      pylsp = {
+        pycodestyle = {
+          enabled = true,
+          ignore = { "E501" }
+        },
+      }
+    }
 }
 
 lsp['ltex'].setup{
