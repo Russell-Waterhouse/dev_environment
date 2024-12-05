@@ -238,7 +238,7 @@ def install_vs_code():
     run_command("sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc")
     run_command('echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null')
     # run_command('dnf check-update') # TODO: I don't think this is necessary, and it returns nonzero exit status
-    run_command('sudo dnf install code')
+    run_command('sudo dnf install -y code')
 
 
 # Main function to execute the steps
