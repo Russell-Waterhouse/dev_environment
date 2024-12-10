@@ -92,13 +92,16 @@ lsp['pylsp'].setup{
     on_attach = on_attach,
     settings = {
       pylsp = {
-        pycodestyle = {
-          enabled = true,
-          ignore = { "E501" }
-        },
+        plugins = {
+          pycodestyle = {
+            ignore = {'W391', 'E501'},
+            maxLineLength = 100
+          }
+        }
       }
     }
 }
+
 
 lsp['ltex'].setup{
     capabilities = capabilities,

@@ -139,22 +139,23 @@ def configure_git():
         run_command(f"git config --global {key} {value}")
 
 
-def copy_files():
-    print("Copying configuration files...")
+def sync_files():
+    print("Syncing configuration files...")
 
     # Example paths for the configuration files
     config_files = {
         ".bashrc": bashrc_path,
         ".ascii-art": ascii_art_path,
-        "nvim": nvim_config_path,
-        "tmux": tmux_config_path
+        "nvim": nvim_config_path,  # This is a directory
+        "tmux": tmux_config_path  # This is a directory
     }
 
     for src, dest in config_files.items():
         if os.path.exists(src):
             print(f"Copying {src} to {dest}")
             os.makedirs(os.path.dirname(dest), exist_ok=True)
-            subprocess.run(["cp", "-r", src, dest])
+            run_command(f"rm -rf {dest}")
+            run_command(f"cp -r {src} {dest}")
         else:
             print(f"Source file {src} not found. Skipping.")
 
@@ -172,6 +173,7 @@ def setup_tpm():
     tpm_dir = os.path.expanduser('~/.tmux/plugins/tpm')
     if not os.path.isdir(tpm_dir):
         run_command("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
+
 
 def setup_docker_desktop():
     docker_desktop_install_path = "/opt/docker-desktop"
@@ -261,7 +263,7 @@ def setup_homerow_mods():
     run_command('sudo touch /etc/udev/rules.d/99-input.rules')
     run_command('sudo cp kanata_configs/99-input.rules /etc/udev/rules.d/99-input.rules')
     # with open('/etc/udev/rules.d/99-input.rules', 'w') as f:
-        # f.write('KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput""')
+    # f.write('KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput""')
     run_command('sudo udevadm control --reload-rules && sudo udevadm trigger')
     run_command('sudo modprobe uinput')
     run_command('mkdir -p ~/.config/systemd/user')
@@ -277,7 +279,7 @@ def setup_homerow_mods():
 def main():
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
-    copy_files()
+    sync_files()
     # install_packages()
     # set_environment_variables()
     # configure_git()
