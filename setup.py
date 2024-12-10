@@ -277,7 +277,7 @@ def setup_homerow_mods():
 def main():
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
-    # copy_files()
+    copy_files()
     # install_packages()
     # set_environment_variables()
     # configure_git()
@@ -289,7 +289,7 @@ def main():
     # install_k8s_lens()
     # install_az_cli()
     # install_vs_code()
-    setup_homerow_mods()
+    # setup_homerow_mods()
 
     print("Setup completed successfully!")
 
