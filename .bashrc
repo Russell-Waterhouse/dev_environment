@@ -141,5 +141,5 @@ eval "$(zoxide init bash)"
 alias cd="z"
 
 # start a terminal with a fun little ascii art drawing
-cat ~/.ascii-art/snowflake.txt
+cat ~/.ascii-art/christmas_tree.txt
 
