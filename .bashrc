@@ -2,19 +2,14 @@
 # ~/.bashrc
 #
 
-#Ibus settings if you need them
-#type ibus-setup in terminal to change settings and start the daemon
-#delete the hashtags of the next lines and restart
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=dbus
-#export QT_IM_MODULE=ibus
+GOPATH=$HOME/go  PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 export HISTCONTROL=ignoreboth:erasedups
 
-# Make vim the default editor
+# Make nvim the default editor
 export EDITOR='nvim'
 export VISUAL='nvim'
 
