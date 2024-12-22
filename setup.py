@@ -32,7 +32,9 @@ dnf_packages = [
     "gcc",
     "alacritty",
     "nodejs",
-    "python3"
+    "python3",
+    "ruby-devel",
+    "zlib-devel"
 ]
 
 flatpak_packages = [
@@ -280,7 +282,7 @@ def main():
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
     sync_files()
-    # install_packages()
+    install_packages()
     # set_environment_variables()
     # configure_git()
     # setup_groups()

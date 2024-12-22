@@ -94,7 +94,8 @@ lsp['pylsp'].setup{
       pylsp = {
         plugins = {
           pycodestyle = {
-            ignore = {'W391', 'E501'},
+            -- Ignore line too long (E501)
+            ignore = {'E501'},
             maxLineLength = 100
           }
         }
@@ -109,6 +110,21 @@ lsp['ltex'].setup{
 }
 
 lsp['rust_analyzer'].setup{
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
+lsp['volar'].setup{
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
+lsp['ruby_lsp'].setup{
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
+lsp['gopls'].setup{
     capabilities = capabilities,
     on_attach = on_attach
 }
