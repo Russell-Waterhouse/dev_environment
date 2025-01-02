@@ -106,7 +106,24 @@ lsp['pylsp'].setup{
 
 lsp['ltex'].setup{
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+      ltex = {
+        language = "en-CA",
+        dictionary = {
+          ["en-CA"] = {
+            "Neovim",
+            "devops",
+            "CommonJS",
+            "bork",
+            "borked",
+            "borking",
+            "borks",
+            "VSCode",
+          },
+        },
+      }
+    }
 }
 
 lsp['rust_analyzer'].setup{
