@@ -121,6 +121,8 @@ lsp['ltex'].setup{
             "borks",
             "VSCode",
             "cli",
+            "SMConverter",
+            "tximport",
           },
         },
       }
