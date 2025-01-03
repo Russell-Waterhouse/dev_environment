@@ -123,6 +123,13 @@ lsp['ltex'].setup{
             "cli",
             "SMConverter",
             "tximport",
+            "dependabot",
+            "fastp",
+            "MLFunction",
+            "Oncohelix",
+            "repos",
+            "PII",
+            "QMD",
           },
         },
       }
