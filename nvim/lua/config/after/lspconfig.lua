@@ -120,6 +120,7 @@ lsp['ltex'].setup{
             "borking",
             "borks",
             "VSCode",
+            "cli",
           },
         },
       }
