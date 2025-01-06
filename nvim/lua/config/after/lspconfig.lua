@@ -95,7 +95,8 @@ lsp['pylsp'].setup{
         plugins = {
           pycodestyle = {
             -- Ignore line too long (E501)
-            ignore = {'E501'},
+            -- Ignore line break before binary operator (W503)
+            ignore = {'E501', 'W503'},
             maxLineLength = 100
           }
         }
@@ -130,6 +131,10 @@ lsp['ltex'].setup{
             "repos",
             "PII",
             "QMD",
+            "venv",
+            "gitignore",
+            "django",
+            "npm",
           },
         },
       }
