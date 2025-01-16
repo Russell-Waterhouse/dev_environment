@@ -135,6 +135,11 @@ lsp['ltex'].setup{
             "gitignore",
             "django",
             "npm",
+            "QUALISURE",
+            "Qualisure",
+            "PascalCase",
+            "camelCase",
+            "snake_case",
           },
         },
       }
