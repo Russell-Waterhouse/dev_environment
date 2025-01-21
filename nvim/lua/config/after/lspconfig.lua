@@ -140,6 +140,10 @@ lsp['ltex'].setup{
             "PascalCase",
             "camelCase",
             "snake_case",
+            "ui",
+            "UI",
+            "ux",
+            "UX",
           },
         },
       }
