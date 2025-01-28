@@ -144,6 +144,8 @@ lsp['ltex'].setup{
             "UI",
             "ux",
             "UX",
+            "vite",
+            "Vite",
           },
         },
       }
