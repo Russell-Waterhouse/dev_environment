@@ -47,6 +47,8 @@ bashrc_path = os.path.join(home_directory, ".bashrc")
 ascii_art_path = os.path.join(home_directory, ".ascii-art")
 nvim_config_path = os.path.join(home_directory, ".config/nvim")
 tmux_config_path = os.path.join(home_directory, ".config/tmux")
+restart_keybinds_path = os.path.join(home_directory, "restart_keybinds.sh")
+stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 editor = "nvim"
 
 # Git configuration settings
@@ -149,7 +151,9 @@ def sync_files():
         ".bashrc": bashrc_path,
         ".ascii-art": ascii_art_path,
         "nvim": nvim_config_path,  # This is a directory
-        "tmux": tmux_config_path  # This is a directory
+        "tmux": tmux_config_path,  # This is a directory
+        "kanata_configs/restart_keybinds.sh": restart_keybinds_path,
+        "kanata_configs/stop_keybinds.sh": stop_keybinds_path,
     }
 
     for src, dest in config_files.items():
