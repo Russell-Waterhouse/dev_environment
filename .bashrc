@@ -79,6 +79,7 @@ alias ls='ls -lah --color=auto'
 
 # v is shorter than vim
 alias v='nvim'
+alias vim='nvim'
 
 # e - short for edit
 alias e='nvim .'
