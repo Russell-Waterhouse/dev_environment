@@ -58,7 +58,7 @@ alias co="git checkout"
 alias gaa="git add -A"
 gpu() {
     CURRBRANCH=$(git rev-parse --abbrev-ref HEAD)
-    firefox $(git push --set-upstream origin $CURRBRANCH 2>&1 | grep --only-matching https://github.com/.*/$CURRBRANCH)
+    chromium-browser $(git push --set-upstream origin $CURRBRANCH 2>&1 | grep --only-matching https://github.com/.*/$CURRBRANCH)
 }
 gcam() {
     git add -A
@@ -135,6 +135,8 @@ export PS1="\\w[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)]\$ "
 # set up zoxide for navigation
 eval "$(zoxide init bash)"
 alias cd="z"
+
+alias prune="git fetch -p; git branch -r | awk 'print \$1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk 'print \$1}' | xargs git branch -d"
 
 # start a terminal with a fun little ascii art drawing
 cat ~/.ascii-art/christmas_tree.txt
