@@ -136,7 +136,7 @@ export PS1="\\w[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)]\$ "
 eval "$(zoxide init bash)"
 alias cd="z"
 
-alias prune="git fetch -p; git branch -r | awk 'print \$1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk 'print \$1}' | xargs git branch -d"
+alias prune="git fetch -p; git branch -r | awk '{print \$1}' | grep -E -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print \$1}' | xargs git branch -d"
 
 # start a terminal with a fun little ascii art drawing
 cat ~/.ascii-art/christmas_tree.txt
