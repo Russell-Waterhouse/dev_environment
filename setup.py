@@ -298,7 +298,7 @@ def main():
     # install_k8s_lens()
     # install_az_cli()
     # install_vs_code()
-    setup_homerow_mods()
+    # setup_homerow_mods()
 
     print("Setup completed successfully!")
 
