@@ -82,7 +82,7 @@ alias v='nvim'
 alias vim='nvim'
 
 # e - short for edit
-alias e='nvim .'
+alias e='nvim $(fzf)'
 
 #fix obvious typo's
 alias cd..='cd ..'
