@@ -34,7 +34,8 @@ dnf_packages = [
     "nodejs",
     "python3",
     "ruby-devel",
-    "zlib-devel"
+    "zlib-devel",
+    "bat"
 ]
 
 flatpak_packages = [

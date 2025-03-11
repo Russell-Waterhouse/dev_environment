@@ -82,7 +82,8 @@ alias v='nvim'
 alias vim='nvim'
 
 # e - short for edit
-alias e='nvim $(fzf)'
+alias e='nvim $(fzf --preview "bat --color=always {}")'
+
 
 #fix obvious typo's
 alias cd..='cd ..'
