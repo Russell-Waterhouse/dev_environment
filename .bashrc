@@ -140,5 +140,5 @@ alias cd="z"
 alias prune="git fetch -p; git branch -r | awk '{print \$1}' | grep -E -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print \$1}' | xargs git branch -d"
 
 # start a terminal with a fun little ascii art drawing
-cat ~/.ascii-art/christmas_tree.txt
+cat ~/.ascii-art/lighthouse.txt
 
