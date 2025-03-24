@@ -1,4 +1,5 @@
 local builtin = require('telescope.builtin')
+-- show hidden files in find_files and live_grep
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
@@ -22,8 +23,24 @@ telescope.setup({
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
             }
+        },
+        vimgrep_arguments = {
+            'rg',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
         }
-    }
+    },
+    pickers = {
+        find_files = {
+            hidden = true,
+        },
+        live_grep = {
+            hidden = true,
+        },
+    },
 })
 
 local harpoon = require('harpoon')
