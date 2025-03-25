@@ -174,7 +174,12 @@ lsp['ltex'].setup{
             "VueJS",
             "llm",
             "LLM",
+            "reauth",
+            "reauthed",
           },
+        },
+        disabledRules = {
+          ["en-CA"] = { 'ENGLISH_WORD_REPEAT_BEGINNING_RULE' },
         },
       }
     }
