@@ -118,14 +118,7 @@ require("lazy").setup({
 
         { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
-        { "github/copilot.vim" },
-
-        {
-            "ThePrimeagen/harpoon",
-            branch = "harpoon2",
-            dependencies = { "nvim-lua/plenary.nvim" }
-        },
-
+        -- { "github/copilot.vim" },
 
         {
             "iamcco/markdown-preview.nvim",
