@@ -48,23 +48,20 @@ require("lazy").setup({
         { "f-person/git-blame.nvim" },
         { "sindrets/diffview.nvim" },
 
-        -- this plugin is causing issues in fedora linux, so commenting it out
-        -- until I can figure out what's going on
-        -- overhauls messages, mcdline, and popup menu
---        {
---            "folke/noice.nvim",
---            event = "VeryLazy",
---            opts = {
---            },
---            dependencies = {
+       {
+           "folke/noice.nvim",
+           event = "VeryLazy",
+           opts = {
+           },
+           dependencies = {
                 -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
---                "MunifTanjim/nui.nvim",
+               "MunifTanjim/nui.nvim",
                 -- OPTIONAL:
                 --   `nvim-notify` is only needed, if you want to use the notification view.
                 --   If not available, we use `mini` as the fallback
---                "rcarriga/nvim-notify",
---            }
---        },
+               "rcarriga/nvim-notify",
+           }
+       },
 
         {
             'stevearc/dressing.nvim',
