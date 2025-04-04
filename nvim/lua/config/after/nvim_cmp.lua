@@ -1,8 +1,28 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
+local ls = luasnip
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local c = ls.choice_node
+local d = ls.dynamic_node
 
 -- loads vscode-style snippets from places like friendly-snippets
 require('luasnip.loaders.from_vscode').lazy_load()
+
+
+-- Custom Go snippets
+ls.add_snippets( "javascript", {
+    s("cdir", {
+        t("console.dir("), i(1, "variable"), t(", { depth: null });"),
+    }),
+})
+ls.add_snippets( "typescript", {
+    s("cdir", {
+        t("console.dir("), i(1, "variable"), t(", { depth: null });"),
+    }),
+})
 
 cmp.setup({
     completions = {
