@@ -96,7 +96,8 @@ lsp['pylsp'].setup{
           pycodestyle = {
             -- Ignore line too long (E501)
             -- Ignore line break before binary operator (W503)
-            ignore = {'E501', 'W503'},
+            -- Ignore line break after binary operator (W504)
+            ignore = {'E501', 'W503', 'W504'},
             maxLineLength = 100
           }
         }

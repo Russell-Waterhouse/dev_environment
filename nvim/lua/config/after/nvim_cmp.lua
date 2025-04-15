@@ -13,12 +13,7 @@ require('luasnip.loaders.from_vscode').lazy_load()
 
 
 -- Custom Go snippets
-ls.add_snippets( "javascript", {
-    s("cdir", {
-        t("console.dir("), i(1, "variable"), t(", { depth: null });"),
-    }),
-})
-ls.add_snippets( "typescript", {
+ls.add_snippets( "all", {
     s("cdir", {
         t("console.dir("), i(1, "variable"), t(", { depth: null });"),
     }),
