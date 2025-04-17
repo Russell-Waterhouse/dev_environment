@@ -282,6 +282,15 @@ def setup_homerow_mods():
     run_command('systemctl --user status kanata.service')
 
 
+def install_ghostty():
+    if (run_command_no_check('which ghostty') == 0):
+        print("Ghostty is already installed")
+        return
+    print("Installing Ghostty")
+    run_command('dnf copr enable pgdev/ghostty')
+    run_command('dnf install ghostty')
+
+
 # Main function to execute the steps
 def main():
     # copy files must be run first because other commands will try to modify
