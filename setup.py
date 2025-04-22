@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import argparse
 
 # List of packages to install via DNF
 dnf_packages = [
@@ -35,7 +36,8 @@ dnf_packages = [
     "python3",
     "ruby-devel",
     "zlib-devel",
-    "bat"
+    "bat",
+    "just"
 ]
 
 flatpak_packages = [
@@ -293,21 +295,29 @@ def install_ghostty():
 
 # Main function to execute the steps
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--install", help="Install DNF Packages", action="store_true")
+    parser.add_argument("-a", "--all", help="Run full setup", action="store_true")
+    args = parser.parse_args()
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
     sync_files()
-    # install_packages()
-    # set_environment_variables()
-    # configure_git()
-    # setup_groups()
-    # set_up_workspaces()
-    # setup_tpm()
-    # setup_docker_desktop()
-    # install_kubectl()
-    # install_k8s_lens()
-    # install_az_cli()
-    # install_vs_code()
-    # setup_homerow_mods()
+
+    if args.install or args.all:
+        install_packages()
+
+    if args.all:
+        set_environment_variables()
+        configure_git()
+        setup_groups()
+        set_up_workspaces()
+        setup_tpm()
+        setup_docker_desktop()
+        install_kubectl()
+        install_k8s_lens()
+        install_az_cli()
+        install_vs_code()
+        setup_homerow_mods()
 
     print("Setup completed successfully!")
 

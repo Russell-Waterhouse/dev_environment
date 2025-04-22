@@ -120,6 +120,9 @@ export NVM_DIR="$HOME/.nvm"
 #[ -f "/home/russ/.ghcup/env" ] && source "/home/russ/.ghcup/env" # ghcup-env
 [ -f "/home/russ/.ghcup/env" ] && source "/home/russ/.ghcup/env" # ghcup-env
 
+# source the utils needed for flashing firmware to ESP32 board
+source ~/export-esp.sh
+
 alias open='nautilus'
 alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
