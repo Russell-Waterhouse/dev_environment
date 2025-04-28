@@ -177,6 +177,9 @@ lsp['ltex'].setup{
             "LLM",
             "reauth",
             "reauthed",
+            "Runpod",
+            "NextUI",
+            "HeroUI",
           },
         },
         disabledRules = {
