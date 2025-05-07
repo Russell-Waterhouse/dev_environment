@@ -182,6 +182,8 @@ lsp['ltex'].setup{
             "HeroUI",
             "csv",
             "CSV",
+            "powershell",
+            "Powershell",
           },
         },
         disabledRules = {
