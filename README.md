@@ -25,11 +25,11 @@ You can also probably find my NixOS config archived on my GitHub.
 
 Here's what I found:
 
-1. I sometimes do work with third party software that isn't packaged in Nix,
-or is packaged in Nix but requires some download that an upstream has updated,
-which changes the sha256 hash, which breaks the build.
+1. I sometimes do work with third party software that isn't packaged in Nix, or
+   is packaged in Nix but requires some download that an upstream server has
+   updated, which changes the sha256 hash, which breaks the build.
 2. Some software just does not run out of the box. Cypress tests are a good
-example
+example.
 3. In these edge cases, I often found confusing and conflicting documentation
 describing how to fix this.
 

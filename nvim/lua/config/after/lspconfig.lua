@@ -180,6 +180,8 @@ lsp['ltex'].setup{
             "Runpod",
             "NextUI",
             "HeroUI",
+            "csv",
+            "CSV",
           },
         },
         disabledRules = {

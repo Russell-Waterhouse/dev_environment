@@ -31,6 +31,8 @@ telescope.setup({
             '--column',
             '--smart-case',
             '--hidden',
+            '--glob',
+            '!.git/**',
         }
     },
     pickers = {
