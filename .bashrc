@@ -69,10 +69,6 @@ gcamu() {
     git commit -m "$*" && gpu
 }
 
-# for backing up dot files
-# source explaining these: https://www.atlassian.com/git/tutorials/dotfiles
-alias config='/usr/bin/git --git-dir=/home/russ/.cfg/ --work-tree=/home/russ'
-alias configp='config push -u origin main'
 
 #list
 alias ls='ls -lah --color=auto'
@@ -128,10 +124,6 @@ alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
 alias ta='tmux attach'
 
-alias edit='nvim /home/russ/.config/nixos/configuration.nix'
-alias rebuild='sudo nixos-rebuild switch -I nixos-config=/home/russ/.config/nixos/configuration.nix'
-alias update-nix='nix-channel --update && sudo nixos-rebuild switch -I nixos-config=/home/russ/.config/nixos/configuration.nix --upgrade'
-
 # Show the current git branch in the terminal prompt
 # Prompt
 export PS1="\\w[\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)]\$ "
@@ -148,5 +140,5 @@ alias qp="query --perplexity"
 alias qg="query --google"
 
 # start a terminal with a fun little ascii art drawing
-cat ~/.ascii-art/lighthouse.txt
+cat ~/.ascii-art/fight_bugs.txt
 
