@@ -184,6 +184,11 @@ lsp['ltex'].setup{
             "CSV",
             "powershell",
             "Powershell",
+            "mysql",
+            "linux",
+            "prisma",
+            "Prisma",
+            "justfile",
           },
         },
         disabledRules = {
