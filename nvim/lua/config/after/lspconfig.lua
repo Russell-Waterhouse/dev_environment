@@ -189,6 +189,8 @@ lsp['ltex'].setup{
             "prisma",
             "Prisma",
             "justfile",
+            "ARGS",
+            "args",
           },
         },
         disabledRules = {
