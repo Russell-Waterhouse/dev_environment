@@ -4,7 +4,7 @@ import os
 import subprocess
 import argparse
 
-# List of packages to install via DNF
+# List of packages to install via apt
 packages = [
     "cowsay",
     "figlet",
@@ -12,7 +12,6 @@ packages = [
     "hugo",
     "jq",
     "ncdu",
-    "neovim",
     "git",
     "git-lfs",
     "tldr",
@@ -36,13 +35,15 @@ packages = [
     "ruby-full",
     "bat",
     "just",
-    "fzf"
-
+    "fzf",
+    "chromium-browser"
 ]
 
 snap_packages = [
     "storage-explorer",
-    "ghostty"
+    "ghostty",
+    "nvim",
+    "code"
 ]
 # Define paths
 user = "russ"
@@ -92,7 +93,7 @@ def setup_groups():
 
 def install_packages():
     try:
-        # Get the list of installed packages using `dnf list installed`
+        # Get the list of installed packages using `apt list installed`
         installed_packages = subprocess.check_output(
             ['apt', 'list', '--installed'], text=True
         ).splitlines()
@@ -115,7 +116,7 @@ def install_packages():
             print(f"Installing package: {package}")
             run_command(f"sudo snap install {package} --classic")
     except subprocess.CalledProcessError as e:
-        print(f"Error running dnf: {e}")
+        print(f"Error running apt: {e}")
         print(f"Command output: {e.output}")
     except Exception as e:
         print(f"Unexpected error: {e}")
@@ -248,17 +249,6 @@ def install_az_cli():
     run_command('sudo dnf install -y azure-cli')
 
 
-def install_vs_code():
-    if (subprocess.run('which code', shell=True, check=False) == 0):
-        print("VS Code is already installed")
-        return
-    print("Installing VS Code")
-    run_command("sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc")
-    run_command('echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null')
-    # run_command('dnf check-update') # TODO: I don't think this is necessary, and it returns nonzero exit status
-    run_command('sudo dnf install -y code')
-
-
 def setup_homerow_mods():
     if (run_command_no_check('which kanata') == 0):
         print("Home Row Mods with Kanata are already set up")
@@ -298,7 +288,7 @@ def install_ghostty():
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--install", help="Install DNF Packages", action="store_true")
+    parser.add_argument("-i", "--install", help="Install Packages", action="store_true")
     parser.add_argument("-a", "--all", help="Run full setup", action="store_true")
     args = parser.parse_args()
     # copy files must be run first because other commands will try to modify
@@ -314,11 +304,10 @@ def main():
         setup_groups()
         set_up_workspaces()
         setup_tpm()
-        setup_docker_desktop()
-        install_kubectl()
-        install_k8s_lens()
-        install_az_cli()
-        install_vs_code()
+        # setup_docker_desktop()
+        # install_kubectl()
+        # install_k8s_lens()
+        # install_az_cli()
         setup_homerow_mods()
 
     print("Setup completed successfully!")
