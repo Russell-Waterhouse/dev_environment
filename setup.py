@@ -5,10 +5,9 @@ import subprocess
 import argparse
 
 # List of packages to install via DNF
-dnf_packages = [
+packages = [
     "cowsay",
     "figlet",
-    "fastfetch",
     "htop",
     "hugo",
     "jq",
@@ -34,14 +33,16 @@ dnf_packages = [
     "alacritty",
     "nodejs",
     "python3",
-    "ruby-devel",
-    "zlib-devel",
+    "ruby-full",
     "bat",
-    "just"
+    "just",
+    "fzf"
+
 ]
 
-flatpak_packages = [
-    "AzureStorageExplorer",
+snap_packages = [
+    "storage-explorer",
+    "ghostty"
 ]
 # Define paths
 user = "russ"
@@ -93,27 +94,26 @@ def install_packages():
     try:
         # Get the list of installed packages using `dnf list installed`
         installed_packages = subprocess.check_output(
-            ['dnf', 'list', '--installed'], text=True
+            ['apt', 'list', '--installed'], text=True
         ).splitlines()
         # Extract just the package names (first column) from the output
-        # installed_packages = {line.split()[0] for line in installed_packages[1:]}  # skip the header line
-        # installed_packages = []
-        # breakpoint()
+        installed_packages = {line.split()[0] for line in installed_packages[1:]}  # skip the header line
         installed = []
-        for line in installed_packages[1:]:
-            package = line.split('.')[0]
+        for line in installed_packages:
+            package = line.split('/')[0]
             installed.append(package)
         # Iterate over the list of packages to install
-        for package in dnf_packages:
+        print("got here")
+        for package in packages:
             # If the package is not installed, install it
             if package not in installed:
                 print(f"Installing package: {package}")
-                run_command(f"sudo dnf install -y {package}")
+                run_command(f"sudo apt install -y {package}")
             else:
                 print(f"Package {package} is already installed.")
-        for package in flatpak_packages:
+        for package in snap_packages:
             print(f"Installing package: {package}")
-            run_command(f"flatpak install -y {package}")
+            run_command(f"sudo snap install {package} --classic")
     except subprocess.CalledProcessError as e:
         print(f"Error running dnf: {e}")
         print(f"Command output: {e.output}")
@@ -190,25 +190,27 @@ def setup_docker_desktop():
         print("Docker desktop is already installed!")
         return
 
-    run_command("sudo dnf remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine")
-    run_command("sudo dnf -y install dnf-plugins-core")
-    run_command("sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo")
-    run_command("sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
-    run_command("sudo systemctl enable --now docker")
-    run_command("cd /tmp \
-            && wget https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64&_gl=1*1vay6q9*_gcl_au*MTYyNjgxOTM1MC4xNzMyMjI3MzI4*_ga*MTc5Njk0NTM1OS4xNzMyMjI3MzI5*_ga_XJWPQMJYHQ*MTczMjIyNzMyOS4xLjEuMTczMjIyODI3OS41MS4wLjA. \
-            && sudo dnf install -y ./'docker-desktop-x86_64.rpm?utm_source=docker' \
-            && rm -rf ./'docker-desktop-x86_64.rpm?utm_source=docker' \
-            && cd -")
+    pass
+    # TODO: Change for ubuntu
+    # run_command("sudo apt remove docker \
+    #               docker-client \
+    #               docker-client-latest \
+    #               docker-common \
+    #               docker-latest \
+    #               docker-latest-logrotate \
+    #               docker-logrotate \
+    #               docker-selinux \
+    #               docker-engine-selinux \
+    #               docker-engine")
+    # run_command("sudo dnf -y install dnf-plugins-core")
+    # run_command("sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo")
+    # run_command("sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
+    # run_command("sudo systemctl enable --now docker")
+    # run_command("cd /tmp \
+    #         && wget https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64&_gl=1*1vay6q9*_gcl_au*MTYyNjgxOTM1MC4xNzMyMjI3MzI4*_ga*MTc5Njk0NTM1OS4xNzMyMjI3MzI5*_ga_XJWPQMJYHQ*MTczMjIyNzMyOS4xLjEuMTczMjIyODI3OS41MS4wLjA. \
+    #         && sudo dnf install -y ./'docker-desktop-x86_64.rpm?utm_source=docker' \
+    #         && rm -rf ./'docker-desktop-x86_64.rpm?utm_source=docker' \
+    #         && cd -")
 
 
 def install_k8s_lens():
