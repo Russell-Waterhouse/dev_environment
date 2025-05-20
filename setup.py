@@ -37,7 +37,8 @@ packages = [
     "bat",
     "just",
     "fzf",
-    "chromium-browser"
+    "chromium-browser",
+    "npm"
 ]
 
 snap_packages = [
