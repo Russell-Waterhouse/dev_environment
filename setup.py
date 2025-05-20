@@ -3,6 +3,7 @@
 import os
 import subprocess
 import argparse
+import time
 
 # List of packages to install via apt
 packages = [
@@ -43,6 +44,8 @@ snap_packages = [
     "storage-explorer",
     "ghostty",
     "nvim",
+    "kubectl",
+    "kontena-lens",
     "code"
 ]
 # Define paths
@@ -190,63 +193,37 @@ def setup_docker_desktop():
     if os.path.exists(docker_desktop_install_path):
         print("Docker desktop is already installed!")
         return
+    # install prerequisites
+    run_command("""# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-    pass
-    # TODO: Change for ubuntu
-    # run_command("sudo apt remove docker \
-    #               docker-client \
-    #               docker-client-latest \
-    #               docker-common \
-    #               docker-latest \
-    #               docker-latest-logrotate \
-    #               docker-logrotate \
-    #               docker-selinux \
-    #               docker-engine-selinux \
-    #               docker-engine")
-    # run_command("sudo dnf -y install dnf-plugins-core")
-    # run_command("sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo")
-    # run_command("sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
-    # run_command("sudo systemctl enable --now docker")
-    # run_command("cd /tmp \
-    #         && wget https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64&_gl=1*1vay6q9*_gcl_au*MTYyNjgxOTM1MC4xNzMyMjI3MzI4*_ga*MTc5Njk0NTM1OS4xNzMyMjI3MzI5*_ga_XJWPQMJYHQ*MTczMjIyNzMyOS4xLjEuMTczMjIyODI3OS41MS4wLjA. \
-    #         && sudo dnf install -y ./'docker-desktop-x86_64.rpm?utm_source=docker' \
-    #         && rm -rf ./'docker-desktop-x86_64.rpm?utm_source=docker' \
-    #         && cd -")
-
-
-def install_k8s_lens():
-    if os.path.exists("/usr/bin/lens-desktop"):
-        print("Lens desktop is already installed")
-        return
-    print("Installing Lens desktop")
-    run_command("sudo dnf config-manager addrepo --from-repofile=https://downloads.k8slens.dev/rpm/lens.repo")
-    run_command("sudo dnf install -y lens")
-
-
-def install_kubectl():
-    if (subprocess.run('which kubectl', shell=True, check=False) == 0):
-        print("kubectl is already installed")
-        return
-    print("Installing kubectl")
-    run_command("""
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
-EOF""")
-    run_command("sudo yum install -y kubectl")
-
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update""")
+    run_command("sudo apt install -y gnome-terminal")
+    run_command("sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
+    run_command("cd /tmp \
+            && wget https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb")
+    run_command("cd /tmp \
+            && sudo apt-get update")
+    time.sleep(30) # allow time for .deb file to download
+    run_command("cd /tmp \
+            && sudo apt-get install -y ./docker-desktop-amd64.deb")
+    run_command("cd /tmp \
+            && rm -rf ./docker-desktop-amd64.deb")
 
 def install_az_cli():
     if (run_command_no_check('which az') == 0):
         print("az cli is already installed")
         return
-    run_command('sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc')
-    run_command('sudo dnf install -y https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm')
-    run_command('sudo dnf install -y azure-cli')
+    run_command('curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash')
 
 
 def setup_homerow_mods():
@@ -304,10 +281,8 @@ def main():
         setup_groups()
         set_up_workspaces()
         setup_tpm()
-        # setup_docker_desktop()
-        # install_kubectl()
-        # install_k8s_lens()
-        # install_az_cli()
+        setup_docker_desktop()
+        install_az_cli()
         setup_homerow_mods()
 
     print("Setup completed successfully!")
