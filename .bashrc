@@ -95,7 +95,7 @@ alias fgrep='fgrep --color=auto'
 alias wget="wget -c"
 
 # this command updates the packages
-alias up='sudo dnf update -y && flatpak update -y'
+alias up='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo snap refresh'
 
 # update & shut down
 alias usd='up && shutdown now'
