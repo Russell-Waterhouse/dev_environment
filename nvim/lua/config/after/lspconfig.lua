@@ -191,6 +191,8 @@ lsp['ltex'].setup{
             "justfile",
             "ARGS",
             "args",
+            "async",
+            "Async",
           },
         },
         disabledRules = {
