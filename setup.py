@@ -292,6 +292,15 @@ def install_ghostty():
     run_command('dnf copr enable pgdev/ghostty')
     run_command('dnf install ghostty')
 
+def install_minikube():
+    if (run_command_no_check('which minikube') == 0):
+        print("Minikube is already installed")
+        return
+    print("Installing minikube")
+    run_command("curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm")
+    run_command("sudo rpm -Uvh minikube-latest.x86_64.rpm")
+    run_command("rm  minikube-latest.x86_64.rpm")
+
 
 # Main function to execute the steps
 def main():
@@ -317,6 +326,7 @@ def main():
         install_k8s_lens()
         install_az_cli()
         install_vs_code()
+        install_minikube()
         setup_homerow_mods()
 
     print("Setup completed successfully!")
