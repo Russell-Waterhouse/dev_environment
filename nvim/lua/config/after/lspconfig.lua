@@ -205,6 +205,10 @@ lsp['ltex'].setup{
             "dockerfile",
             "debian",
             "cd",
+            "zig",
+            "Zig",
+            "enum",
+            "enums",
           },
         },
         disabledRules = {
