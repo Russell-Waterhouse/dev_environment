@@ -212,7 +212,7 @@ lsp['ltex'].setup{
           },
         },
         disabledRules = {
-          ["en-CA"] = { 'ENGLISH_WORD_REPEAT_BEGINNING_RULE' },
+          ["en-CA"] = { 'ENGLISH_WORD_REPEAT_BEGINNING_RULE', 'HYPHEN_TO_EN' },
         },
       }
     }
