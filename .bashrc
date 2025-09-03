@@ -113,9 +113,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# source the utils needed for flashing firmware to ESP32 board
-source ~/export-esp.sh
-
 alias open='nautilus'
 alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
