@@ -141,5 +141,5 @@ alias qp="query --perplexity"
 alias qg="query --google"
 
 # start a terminal with a fun little ascii art drawing
-cat ~/.ascii-art/fight_bugs.txt
+cat ~/.ascii-art/iron_ring.txt
 
