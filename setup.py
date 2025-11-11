@@ -191,7 +191,7 @@ def setup_docker_desktop():
         print("Docker desktop is already installed!")
         return
 
-    run_command("wget --output-document /tmp/docker-desktop-x86_64.rpm https://desktop.docker.com/linux/main/amd64/202357/docker-desktop-x86_64.rpm?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64&_gl=1*1y6h0p*_ga*MTU0MDU1NDIxNy4xNzUzNzE4ODIy*_ga_XJWPQMJYHQ*czE3NTU3MjcwNjkkbzMkZzEkdDE3NTU3Mjc2NzkkajUzJGwwJGgw")
+    run_command("wget --output-document /tmp/docker-desktop-x86_64.rpm https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm")
     # sleep for 10 seconds to allow wget to finish the download.
     # I can't figure out why this isn't synchronous, but I have things to do.
     time.sleep(10)
