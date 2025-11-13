@@ -38,7 +38,8 @@ dnf_packages = [
     "ruby-devel",
     "zlib-devel",
     "bat",
-    "just"
+    "just",
+    "helm"
 ]
 
 flatpak_packages = [
@@ -208,6 +209,9 @@ def install_k8s_lens():
     run_command("sudo dnf install -y lens")
 
 
+# TODO: THIS IS BEING OVERWRITTEN BY INSTALLING KUBELOGIN
+# WITH THE COMMAND
+# `az aks install-cli`
 def install_kubectl():
     if (subprocess.run('which kubectl', shell=True, check=False) == 0):
         print("kubectl is already installed")
