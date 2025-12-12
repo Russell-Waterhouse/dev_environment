@@ -26,6 +26,10 @@ if [ -d "$HOME/scripts" ] ;
   then PATH="$HOME/scripts:$PATH"
 fi
 
+if [ -d "/usr/local" ] ;
+  then PATH="/usr/local:$PATH"
+fi
+
 # add java to path
 PATH="$PATH:$HOME/.jdks/openjdk-20.0.2/bin/"
 
