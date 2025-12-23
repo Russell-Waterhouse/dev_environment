@@ -39,7 +39,8 @@ dnf_packages = [
     "zlib-devel",
     "bat",
     "just",
-    "helm"
+    "helm",
+    "libubsan"
 ]
 
 flatpak_packages = [
@@ -292,7 +293,6 @@ def install_minikube():
     run_command("curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm")
     run_command("sudo rpm -Uvh minikube-latest.x86_64.rpm")
     run_command("rm  minikube-latest.x86_64.rpm")
-
 
 # Main function to execute the steps
 def main():
