@@ -7,14 +7,14 @@ then having to remember to run those same 4 commands on all of my machines.
 
 The solution?
 
-An indempotent script that I can run that sets up my machine exactly how I like.
+An idempotent script that I can run that sets up my machine exactly how I like.
 
 
 ## But Russ, why not use Docker?
 
 I do! I rarely run any code without it! However, I don't want to set up:
 - my LSP in Docker
-- my neovim in Docker
+- my Neovim in Docker
 - my terminal in Docker
 
 ## But Russ, why not use Nix?
@@ -29,10 +29,13 @@ Here's what I found:
    is packaged in Nix but requires some download that an upstream server has
    updated, which changes the sha256 hash, which breaks the build.
 2. Some software just does not run out of the box. Cypress tests are a good
-example.
+   example.
 3. In these edge cases, I often found confusing and conflicting documentation
-describing how to fix this.
+   describing how to fix this.
 
-I liked nix! I liked what it offered and how it works! This whole setup script is just my procedural bastardization of nix. Nix inspired this whole approach.  Unfortunately nix itself just
-didn't do what I need my production machines to do yet (or at least, didn't do it without taking up more time than I have). I will try it again
-when either my requirements change or nix better suits my needs. 
+I liked nix! I liked what it offered and how it works! This whole setup script
+is just my procedural bastardization of nix. Nix inspired this whole approach.
+Unfortunately nix itself just didn't do what I need my production machines to
+do yet (or at least, didn't do it without taking up more time than I have). I
+will try it again when either my requirements change or nix better suits my
+needs.
