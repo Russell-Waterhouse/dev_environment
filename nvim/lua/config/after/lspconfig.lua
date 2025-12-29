@@ -209,6 +209,8 @@ lsp['ltex'].setup{
             "Zig",
             "enum",
             "enums",
+            "initContainer",
+            "initContainers",
           },
         },
         disabledRules = {
