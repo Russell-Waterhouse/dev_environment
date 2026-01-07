@@ -331,7 +331,6 @@ def main():
         install_minikube()
         setup_homerow_mods()
 
-    setup_homerow_mods()
     print("Setup completed successfully!")
 
 
