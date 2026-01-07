@@ -41,7 +41,7 @@ dnf_packages = [
     "just",
     "helm",
     "libubsan",
-    "gnome-terminal" # Needed for docker-desktop
+    "gnome-terminal"  # Needed for docker-desktop
 ]
 
 flatpak_packages = [
@@ -268,9 +268,13 @@ def setup_homerow_mods():
     print("Setting up Kanata to run in the background")
     run_command('sudo touch /etc/udev/rules.d/99-input.rules')
     run_command('sudo cp kanata_configs/99-input.rules /etc/udev/rules.d/99-input.rules')
-    # with open('/etc/udev/rules.d/99-input.rules', 'w') as f:
-    # f.write('KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput""')
+    run_command("""sudo tee /etc/udev/rules.d/99-uinput.rules >/dev/null <<'EOF'
+KERNEL=="uinput", GROUP="uinput", MODE="0660"
+EOF""")  # TODO: this might not be needed, the chgrp and chmod commands below might be all that's required.
     run_command('sudo udevadm control --reload-rules && sudo udevadm trigger')
+    run_command("sudo chgrp uinput /dev/uinput")
+    run_command("sudo chmod g+r /dev/uinput")
+    run_command("sudo chmod g+w /dev/uinput")
     run_command('sudo modprobe uinput')
     run_command('mkdir -p ~/.config/systemd/user')
     run_command('cp kanata_configs/kanata.service ~/.config/systemd/user/kanata.service')
@@ -289,6 +293,7 @@ def install_ghostty():
     run_command('dnf copr enable pgdev/ghostty')
     run_command('dnf install ghostty')
 
+
 def install_minikube():
     if (run_command_no_check('which minikube') == 0):
         print("Minikube is already installed")
@@ -297,6 +302,7 @@ def install_minikube():
     run_command("curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm")
     run_command("sudo rpm -Uvh minikube-latest.x86_64.rpm")
     run_command("rm  minikube-latest.x86_64.rpm")
+
 
 # Main function to execute the steps
 def main():
@@ -325,6 +331,7 @@ def main():
         install_minikube()
         setup_homerow_mods()
 
+    setup_homerow_mods()
     print("Setup completed successfully!")
 
 
