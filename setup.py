@@ -55,6 +55,7 @@ ascii_art_path = os.path.join(home_directory, ".ascii-art")
 nvim_config_path = os.path.join(home_directory, ".config/nvim")
 tmux_config_path = os.path.join(home_directory, ".config/tmux")
 restart_keybinds_path = os.path.join(home_directory, "restart_keybinds.sh")
+fix_homerow_mods = os.path.join(home_directory, "fix_homerow_mods_temporarily.sh")
 stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 editor = "nvim"
 
@@ -161,6 +162,7 @@ def sync_files():
         "tmux": tmux_config_path,  # This is a directory
         "kanata_configs/restart_keybinds.sh": restart_keybinds_path,
         "kanata_configs/stop_keybinds.sh": stop_keybinds_path,
+        "fix_homerow_mods_temporarily.sh": fix_homerow_mods,
     }
 
     for src, dest in config_files.items():
@@ -268,14 +270,15 @@ def setup_homerow_mods():
     print("Setting up Kanata to run in the background")
     run_command('sudo touch /etc/udev/rules.d/99-input.rules')
     run_command('sudo cp kanata_configs/99-input.rules /etc/udev/rules.d/99-input.rules')
-    run_command("""sudo tee /etc/udev/rules.d/99-uinput.rules >/dev/null <<'EOF'
-KERNEL=="uinput", GROUP="uinput", MODE="0660"
-EOF""")  # TODO: this might not be needed, the chgrp and chmod commands below might be all that's required.
+    # TODO: I can't get this kernel mod stuff to load on boot or on login, so I'm
+    # just going to hack around this for now with a script.
+    # TODO: spend some time and find a permanent solution.
+    run_command('sudo cp kanata_configs/99-input.rules /etc/udev/rules.d/99-uinput.rules')  # Is this needed?
+    run_command("echo uinput | sudo tee /etc/modules-load.d/uinput.conf")
     run_command('sudo udevadm control --reload-rules && sudo udevadm trigger')
-    run_command("sudo chgrp uinput /dev/uinput")
-    run_command("sudo chmod g+r /dev/uinput")
-    run_command("sudo chmod g+w /dev/uinput")
     run_command('sudo modprobe uinput')
+    run_command('test -r /dev/uinput')
+    run_command('test -w /dev/uinput')
     run_command('mkdir -p ~/.config/systemd/user')
     run_command('cp kanata_configs/kanata.service ~/.config/systemd/user/kanata.service')
 
@@ -304,6 +307,16 @@ def install_minikube():
     run_command("rm  minikube-latest.x86_64.rpm")
 
 
+def install_terraform():
+    if (run_command_no_check('which terraform') == 0):
+        print('terraform is already installed')
+        return
+    print("Installing terraform")
+    run_command("sudo dnf install -y dnf-plugins-core")
+    run_command("sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo")
+    run_command("sudo dnf -y install terraform")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -330,6 +343,7 @@ def main():
         install_vs_code()
         install_minikube()
         setup_homerow_mods()
+        install_terraform()
 
     print("Setup completed successfully!")
 
