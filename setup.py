@@ -197,7 +197,7 @@ def setup_docker_desktop():
         return
 
     run_command("sudo dnf -y install dnf-plugins-core")
-    run_command("sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo")
+    run_command("sudo dnf config-manager addrepo --overwrite --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo")
     run_command("sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
     run_command("wget --output-document /tmp/docker-desktop-x86_64.rpm https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm")
     # sleep for 10 seconds to allow wget to finish the download.
