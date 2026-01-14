@@ -49,13 +49,7 @@ local capabilities = lsp_completions.default_capabilities()
 
 
 -- configure lua server (with special settings)
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('clangd')
-vim.lsp.enable('ts_ls')
-vim.lsp.enable('pylsp')
-vim.lsp.enable('ltex')
-
-vim.lsp.config.lua_ls = {
+vim.lsp.config('lua_ls', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = { -- custom settings for lua
@@ -73,19 +67,22 @@ vim.lsp.config.lua_ls = {
       },
     },
   }
-}
+})
+vim.lsp.enable('lua_ls')
 
-vim.lsp.config.clangd = {
+vim.lsp.config('clangd', {
   capabilities = capabilities,
   on_attach = on_attach
-}
+})
+vim.lsp.enable('clangd')
 
-vim.lsp.config.ts_ls = {
+vim.lsp.config('tsserver', {
   capabilities = capabilities,
   on_attach = on_attach
-}
+})
+vim.lsp.enable('tsserver')
 
-vim.lsp.config.pylsp = {
+vim.lsp.config('pylsp', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -101,9 +98,10 @@ vim.lsp.config.pylsp = {
       }
     }
   }
-}
+})
+vim.lsp.enable('pylsp')
 
-vim.lsp.config.ltex = {
+vim.lsp.config('ltex', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -215,5 +213,5 @@ vim.lsp.config.ltex = {
       },
     }
   }
-}
-
+})
+vim.lsp.enable('ltex')
