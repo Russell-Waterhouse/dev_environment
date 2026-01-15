@@ -41,7 +41,8 @@ dnf_packages = [
     "just",
     "helm",
     "libubsan",
-    "gnome-terminal"  # Needed for docker-desktop
+    "gnome-terminal",  # Needed for docker-desktop
+    "luarocks"  # Needed for nvim
 ]
 
 flatpak_packages = [
