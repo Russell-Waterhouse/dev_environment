@@ -50,6 +50,8 @@ local capabilities = lsp_completions.default_capabilities()
 
 -- configure lua server (with special settings)
 vim.lsp.config('lua_ls', {
+  filetypes = { 'lua' },
+  cmd = { 'lua-language-server' },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = { -- custom settings for lua
@@ -71,18 +73,26 @@ vim.lsp.config('lua_ls', {
 vim.lsp.enable('lua_ls')
 
 vim.lsp.config('clangd', {
+  filetypes = { 'h', 'hpp', 'c', 'cpp' },
+  cmd = { 'clangd' },
   capabilities = capabilities,
   on_attach = on_attach
 })
 vim.lsp.enable('clangd')
 
-vim.lsp.config('tsserver', {
+vim.lsp.config('ts_ls', {
+  -- TODO: only works when this is commented out???
+  -- filetypes = { 'ts', 'js', 'tsx', 'jsx', 'cjs' },
+  cmd = { 'typescript-language-server', '--stdio' },
+  root_markers = { 'package.json' },
   capabilities = capabilities,
   on_attach = on_attach
 })
-vim.lsp.enable('tsserver')
+vim.lsp.enable('ts_ls')
 
 vim.lsp.config('pylsp', {
+  filetypes = { 'py' },
+  cmd = { 'pylsp' },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -101,7 +111,9 @@ vim.lsp.config('pylsp', {
 })
 vim.lsp.enable('pylsp')
 
-vim.lsp.config('ltex', {
+vim.lsp.config('ltex_plus', {
+  filetypes = { 'tex', 'md', 'txt' },
+  cmd = { 'ltex-ls-plus' },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -207,6 +219,13 @@ vim.lsp.config('ltex', {
           "initContainer",
           "initContainers",
           "li",
+          "malloc",
+          "GMail",
+          "flexbox",
+          "Flexbox",
+          "Tailwind",
+          "Rubocop",
+          "composability",
         },
       },
       disabledRules = {
@@ -215,4 +234,4 @@ vim.lsp.config('ltex', {
     }
   }
 })
-vim.lsp.enable('ltex')
+vim.lsp.enable('ltex_plus')
