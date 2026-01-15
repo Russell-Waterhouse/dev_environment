@@ -206,6 +206,7 @@ vim.lsp.config('ltex', {
           "enums",
           "initContainer",
           "initContainers",
+          "li",
         },
       },
       disabledRules = {
