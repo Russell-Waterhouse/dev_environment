@@ -212,6 +212,7 @@ vim.lsp.config('ltex_plus', {
           "Flexbox",
           "Tailwind",
           "Rubocop",
+          "composability",
         },
       },
       disabledRules = {
