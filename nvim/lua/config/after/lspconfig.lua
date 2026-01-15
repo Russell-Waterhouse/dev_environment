@@ -101,7 +101,7 @@ vim.lsp.config('pylsp', {
 })
 vim.lsp.enable('pylsp')
 
-vim.lsp.config('ltex', {
+vim.lsp.config('ltex_plus', {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -206,6 +206,12 @@ vim.lsp.config('ltex', {
           "enums",
           "initContainer",
           "initContainers",
+          "malloc",
+          "GMail",
+          "flexbox",
+          "Flexbox",
+          "Tailwind",
+          "Rubocop",
         },
       },
       disabledRules = {
@@ -214,4 +220,4 @@ vim.lsp.config('ltex', {
     }
   }
 })
-vim.lsp.enable('ltex')
+vim.lsp.enable('ltex_plus')
