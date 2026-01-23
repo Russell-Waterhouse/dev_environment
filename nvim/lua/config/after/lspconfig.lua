@@ -80,6 +80,14 @@ vim.lsp.config('clangd', {
 })
 vim.lsp.enable('clangd')
 
+vim.lsp.config('rust_analyzer', {
+  filetypes = { 'rs' },
+  cmd = { 'rust-analyzer' },
+  capabilities = capabilities,
+  on_attach = on_attach
+})
+vim.lsp.enable('rust_analyzer')
+
 vim.lsp.config('ts_ls', {
   -- TODO: only works when this is commented out???
   -- filetypes = { 'ts', 'js', 'tsx', 'jsx', 'cjs' },

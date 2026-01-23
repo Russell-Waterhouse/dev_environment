@@ -318,6 +318,14 @@ def install_terraform():
     run_command("sudo dnf -y install terraform")
 
 
+def install_rust():
+    if (run_command_no_check('which rustc') == 0):
+        print('rust is alreay installed')
+        return
+    print('installing rust')
+    run_command("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -345,6 +353,7 @@ def main():
         install_minikube()
         setup_homerow_mods()
         install_terraform()
+        install_rust();
 
     print("Setup completed successfully!")
 
