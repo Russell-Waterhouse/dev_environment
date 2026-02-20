@@ -2,6 +2,8 @@
 # ~/.bashrc
 #
 
+. "$HOME/.cargo/env"
+
 GOPATH=$HOME/go  PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # If not running interactively, don't do anything
