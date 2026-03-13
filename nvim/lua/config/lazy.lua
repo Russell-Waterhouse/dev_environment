@@ -96,7 +96,7 @@ require("lazy").setup({
       dependencies = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
         require('treesj').setup({
-          max_join_length = 1200,
+          max_join_length = 8192,
         })
       end,
     },

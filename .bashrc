@@ -87,11 +87,12 @@ alias vim='nvim'
 alias e='nvim $(fzf --preview "bat --color=always {}")'
 
 
-#fix obvious typo's
+#fix obvious typos
 alias cd..='cd ..'
 alias pdw="pwd"
 alias cim='vim'
 alias jsut='just'
+alias cleawr='clear'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'

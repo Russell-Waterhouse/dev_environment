@@ -87,8 +87,6 @@ vim.lsp.config('rust_analyzer', {
 vim.lsp.enable('rust_analyzer')
 
 vim.lsp.config('ts_ls', {
-  -- TODO: only works when this is commented out???
-  -- filetypes = { 'ts', 'js', 'tsx', 'jsx', 'cjs' },
   cmd = { 'typescript-language-server', '--stdio' },
   root_markers = { 'package.json' },
   capabilities = capabilities,
