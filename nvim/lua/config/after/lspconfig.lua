@@ -232,6 +232,9 @@ vim.lsp.config('ltex_plus', {
           "Tailwind",
           "Rubocop",
           "composability",
+          "accessor",
+          "zig",
+          "Zig",
         },
       },
       disabledRules = {

@@ -104,6 +104,7 @@ alias wget="wget -c"
 
 # this command updates the packages
 alias up='sudo dnf update -y && flatpak update -y'
+alias down='up && shutdown now'
 
 # update & shut down
 alias usd='up && shutdown now'
