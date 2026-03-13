@@ -81,8 +81,6 @@ vim.lsp.config('clangd', {
 vim.lsp.enable('clangd')
 
 vim.lsp.config('rust_analyzer', {
-  filetypes = { 'rs' },
-  cmd = { 'rust-analyzer' },
   capabilities = capabilities,
   on_attach = on_attach
 })
