@@ -43,7 +43,8 @@ dnf_packages = [
     "libubsan",
     "gnome-terminal",  # Needed for docker-desktop
     "luarocks",  # Needed for nvim
-    "valgrind"
+    "valgrind",
+    "btop"
 ]
 
 flatpak_packages = [
