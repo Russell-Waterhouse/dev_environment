@@ -86,6 +86,19 @@ alias vim='nvim'
 # e - short for edit
 alias e='nvim $(fzf --preview "bat --color=always {}")'
 
+fe() {
+  local file
+  file=$(fzf --ansi --disabled --query "$*" \
+    --bind "change:reload:rg --smart-case --line-number --no-heading --color=always {q} || true" \
+    --delimiter : \
+    --preview 'bat --style=numbers --color=always {1} --highlight-line {2}' \
+    --preview-window=up:60% \
+    | cut -d: -f1,2)
+
+  if [[ -n "$file" ]]; then
+    nvim +"${file#*:}" "${file%%:*}"
+  fi
+}
 
 #fix obvious typos
 alias cd..='cd ..'
