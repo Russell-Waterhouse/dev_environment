@@ -186,6 +186,7 @@ def set_up_workspaces():
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"switch-to-workspace-{i}\" \"['<Super>{i}']\"")
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"move-to-workspace-{i}\" \"['<Super><Shift>{i}']\"")
 
+
 def disable_key_binding_that_fucks_up_my_monitors():
     # Normally, super+p allows you to change if you mirror or join your displays
     # however, if you hit it by accident, it resets your monitor join settings,
