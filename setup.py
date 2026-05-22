@@ -44,7 +44,8 @@ dnf_packages = [
     "gnome-terminal",  # Needed for docker-desktop
     "luarocks",  # Needed for nvim
     "valgrind",
-    "btop"
+    "btop",
+    "clang"
 ]
 
 flatpak_packages = [
