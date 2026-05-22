@@ -15,6 +15,14 @@ export HISTCONTROL=ignoreboth:erasedups
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+# This is for running opencode with ollama. Works for current version but my
+# graphics card is not powerful enough for running an agentic model.
+# export OLLAMA_VULKAN=1
+# export GGML_VK_VISIBLE_DEVICES=0
+# export OLLAMA_CONTEXT_LENGTH=32000
+# export OLLAMA_KEEP_ALIVE=1h
+# export OLLAMA_DEBUG=1
+# alias oc='ollama launch opencode'
 
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
@@ -106,6 +114,7 @@ alias pdw="pwd"
 alias cim='vim'
 alias jsut='just'
 alias cleawr='clear'
+alias clera='clear'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'

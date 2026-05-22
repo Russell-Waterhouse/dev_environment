@@ -50,7 +50,6 @@ local capabilities = lsp_completions.default_capabilities()
 
 -- configure lua server (with special settings)
 vim.lsp.config('lua_ls', {
-  filetypes = { 'lua' },
   cmd = { 'lua-language-server' },
   capabilities = capabilities,
   on_attach = on_attach,
@@ -73,7 +72,6 @@ vim.lsp.config('lua_ls', {
 vim.lsp.enable('lua_ls')
 
 vim.lsp.config('clangd', {
-  filetypes = { 'h', 'hpp', 'c', 'cpp' },
   cmd = { 'clangd' },
   capabilities = capabilities,
   on_attach = on_attach
@@ -95,7 +93,6 @@ vim.lsp.config('ts_ls', {
 vim.lsp.enable('ts_ls')
 
 vim.lsp.config('pylsp', {
-  filetypes = { 'py' },
   cmd = { 'pylsp' },
   capabilities = capabilities,
   on_attach = on_attach,
@@ -116,7 +113,6 @@ vim.lsp.config('pylsp', {
 vim.lsp.enable('pylsp')
 
 vim.lsp.config('ltex_plus', {
-  filetypes = { 'tex', 'md', 'txt' },
   cmd = { 'ltex-ls-plus' },
   capabilities = capabilities,
   on_attach = on_attach,

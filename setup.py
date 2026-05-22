@@ -188,6 +188,13 @@ def set_up_workspaces():
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"move-to-workspace-{i}\" \"['<Super><Shift>{i}']\"")
 
 
+def disable_key_binding_that_fucks_up_my_monitors():
+    # Normally, super+p allows you to change if you mirror or join your displays
+    # however, if you hit it by accident, it resets your monitor join settings,
+    # so my vertical monitor is now horizontal.
+    run_command("gsettings set org.gnome.mutter.keybindings switch-monitor \"['']\"")
+
+
 def setup_tpm():
     tpm_dir = os.path.expanduser('~/.tmux/plugins/tpm')
     if not os.path.isdir(tpm_dir):
@@ -247,16 +254,6 @@ def install_az_cli():
     run_command('sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc')
     run_command('sudo dnf install -y https://packages.microsoft.com/config/rhel/9.0/packages-microsoft-prod.rpm')
     run_command('sudo dnf install -y azure-cli')
-
-
-def install_vs_code():
-    if (subprocess.run('which code', shell=True, check=False) == 0):
-        print("VS Code is already installed")
-        return
-    print("Installing VS Code")
-    run_command("sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc")
-    run_command('echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null')
-    run_command('sudo dnf install -y code')
 
 
 def setup_homerow_mods():
@@ -346,6 +343,7 @@ def main():
         configure_git()
         setup_groups()
         set_up_workspaces()
+        disable_key_binding_that_fucks_up_my_monitors()
         setup_tpm()
         setup_docker_desktop()
         install_kubectl()
