@@ -45,6 +45,7 @@ dnf_packages = [
     "luarocks",  # Needed for nvim
     "valgrind",
     "btop",
+    "clang"
 ]
 
 flatpak_packages = [
@@ -191,6 +192,7 @@ def disable_key_binding_that_fucks_up_my_monitors():
     # Normally, super+p allows you to change if you mirror or join your displays
     # however, if you hit it by accident, it resets your monitor join settings,
     # so my vertical monitor is now horizontal.
+    print("Disabling the key binding that fucks up my monitors")
     run_command("gsettings set org.gnome.mutter.keybindings switch-monitor \"['']\"")
 
 
@@ -348,11 +350,10 @@ def main():
         install_kubectl()
         install_k8s_lens()
         install_az_cli()
-        install_vs_code()
         install_minikube()
         setup_homerow_mods()
         install_terraform()
-        install_rust();
+        install_rust()
 
     print("Setup completed successfully!")
 
