@@ -38,7 +38,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- dash "-" is now a part of the word recognized by w key
-opt.iskeyword:append("-")
+opt.iskeyword: append("-")
 
 -- see whitespace at the end of lines
 opt.list = true
@@ -46,4 +46,24 @@ opt.list = true
 -- max scrolloff of 10 to keep my cursor more centered
 opt.scrolloff = 10
 opt.colorcolumn = "80"
+
+
+-- my spell check configuration
+-- Enable spellcheck only for markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "gitcommit" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = { "en_ca" }
+  end,
+})
+
+-- keep spell disabled everywhere else
+vim.opt.spell = false
+
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+vim.opt.spellsuggest = { "best", 9 }
+vim.cmd([[
+  highlight SpellBad gui=undercurl guisp=Orange
+]])
 

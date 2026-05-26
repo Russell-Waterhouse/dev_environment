@@ -178,6 +178,18 @@ def sync_files():
         else:
             print(f"Source file {src} not found. Skipping.")
 
+    compile_nvim_spell()
+
+
+def compile_nvim_spell():
+    """Build .spl from the personal word list so spell check sees new words."""
+    spell_add = os.path.join(nvim_config_path, "spell", "en.utf-8.add")
+    if not os.path.isfile(spell_add):
+        print(f"No spell word list at {spell_add}, skipping mkspell.")
+        return
+    print(f"Compiling spell file {spell_add}...")
+    run_command(f'nvim --headless "+mkspell! {spell_add}" +qa')
+
 
 def set_up_workspaces():
     run_command("gsettings set org.gnome.mutter dynamic-workspaces false")
@@ -338,6 +350,7 @@ def main():
 
     if args.install or args.all:
         install_packages()
+        compile_nvim_spell()
 
     if args.all:
         set_environment_variables()
