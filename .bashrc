@@ -72,7 +72,7 @@ alias co="git checkout"
 alias gaa="git add -A"
 gpu() {
     CURRBRANCH=$(git rev-parse --abbrev-ref HEAD)
-    chromium-browser $(git push --set-upstream origin $CURRBRANCH 2>&1 | grep --only-matching https://github.com/.*/$CURRBRANCH)
+    xdg-open $(git push --set-upstream origin $CURRBRANCH 2>&1 | grep --only-matching https://github.com/.*/$CURRBRANCH)
 }
 gcam() {
     git add -A
@@ -143,7 +143,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-alias open='nautilus'
+alias open='xdg-open'
 alias fabric='~/repos/fabric/client/fabric'
 alias t='tmux'
 alias ta='tmux attach'

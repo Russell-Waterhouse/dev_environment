@@ -111,3 +111,13 @@ config
 sha256
 VM
 VM's
+frontend
+Frontend
+backend
+Backend
+E2E
+e2e
+CORS
+NGINX
+judgement
+Judgement
