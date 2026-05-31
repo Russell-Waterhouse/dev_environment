@@ -51,6 +51,7 @@ local capabilities = lsp_completions.default_capabilities()
 -- configure lua server (with special settings)
 vim.lsp.config('lua_ls', {
   cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = { -- custom settings for lua
@@ -73,6 +74,7 @@ vim.lsp.enable('lua_ls')
 
 vim.lsp.config('clangd', {
   cmd = { 'clangd' },
+  filetypes = { 'c', 'cpp' },
   capabilities = capabilities,
   on_attach = on_attach
 })
@@ -80,12 +82,14 @@ vim.lsp.enable('clangd')
 
 vim.lsp.config('rust_analyzer', {
   capabilities = capabilities,
+  filetypes = { 'rust' },
   on_attach = on_attach
 })
 vim.lsp.enable('rust_analyzer')
 
 vim.lsp.config('ts_ls', {
   cmd = { 'typescript-language-server', '--stdio' },
+  filetypes = { 'javascript', 'typescript' },
   root_markers = { 'package.json' },
   capabilities = capabilities,
   on_attach = on_attach
@@ -94,6 +98,7 @@ vim.lsp.enable('ts_ls')
 
 vim.lsp.config('pylsp', {
   cmd = { 'pylsp' },
+  filetypes = { 'python' },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
