@@ -1,38 +1,6 @@
-function MonokaiTheme()
-    local colors = {
-        white='#fcfcfa',
-        black='#2d2a2e',
-        gray='#727072',
-        red='#ff6188',
-        green='#a9dc76',
-        yellow='#ffd866',
-        cyan='#ab9df2',
-        blue='#78dce8',
-        magenta='#fc9867',
-    }
-
-    return {
-        normal = {
-            a = { fg = colors.black, bg = colors.cyan, gui = 'bold' },
-            b = { fg = colors.black, bg = colors.magenta },
-            c = { fg = colors.white, bg = colors.gray },
-        },
-        insert = { a = { fg = colors.black, bg = colors.green, gui = 'bold' } },
-        visual = { a = { fg = colors.black, bg = colors.yellow, gui = 'bold' } },
-        replace = { a = { fg = colors.black, bg = colors.red, gui = 'bold' } },
-        inactive = {
-            a = { fg = colors.blue, bg = colors.black, gui = 'bold' },
-            b = { fg = colors.white, bg = colors.blue },
-            c = { fg = colors.gray, bg = colors.white },
-        },
-    }
-
-end
-
-
 require('lualine').setup {
     options = {
-        theme = MonokaiTheme(),
+        theme = 'gruvbox_dark',
         icons_enabled = true,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},

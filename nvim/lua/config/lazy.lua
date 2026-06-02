@@ -2,7 +2,8 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
@@ -19,15 +20,16 @@ require("lazy").setup({
     -- Treesitter: Better highlighting
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-    -- Monokai theme
-    { "tanvirtin/monokai.nvim" },
+    -- grubbox theme
+    { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = {} },
 
     -- Bottom status bar
-    { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+    { 'nvim-lualine/lualine.nvim',dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
     -- Telescope: fuzzy finder
     {
-      'nvim-telescope/telescope.nvim', tag = 'v0.2.1',
+      'nvim-telescope/telescope.nvim',
+      tag = 'v0.2.1',
       dependencies = {
         'nvim-lua/plenary.nvim',
         -- optional but recommended
@@ -39,14 +41,6 @@ require("lazy").setup({
     {
       "kylechui/nvim-surround",
       version = "*", -- Use for stability; omit to use `main` branch for the latest features event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup({
-          -- Configuration here, or leave empty to use defaults
-          -- use ys{motion}{char} for surround {motion} with {character}
-          -- use ds{char} for delete surrounding {char}
-          -- use cs{target}{replacement} to replace {target} with {replacement}
-        })
-      end
     },
 
     -- can now use gc<motion> to toggle comments
@@ -55,9 +49,8 @@ require("lazy").setup({
     { "numToStr/Comment.nvim" },
 
     -- Git integrations
-    { "lewis6991/gitsigns.nvim" },
-    { "f-person/git-blame.nvim" },
-    { "sindrets/diffview.nvim" },
+    { "lewis6991/gitsigns.nvim" }, -- git indications in gutter (and other stuff)
+    { "sindrets/diffview.nvim" },  -- diff view `gdo` & `gdx`
 
     {
       'stevearc/dressing.nvim',
@@ -67,10 +60,10 @@ require("lazy").setup({
     {
       'hrsh7th/nvim-cmp',
       dependencies = {
-        'hrsh7th/cmp-buffer', -- use current buffer as completions source 
-        'hrsh7th/cmp-path', -- use filesystem as completions source
-        'L3MON4D3/LuaSnip', -- snippet engine
-        'saadparwaiz1/cmp_luasnip', -- completion source for luasnip
+        'hrsh7th/cmp-buffer',          -- use current buffer as completions source
+        'hrsh7th/cmp-path',            -- use filesystem as completions source
+        'L3MON4D3/LuaSnip',            -- snippet engine
+        'saadparwaiz1/cmp_luasnip',    -- completion source for luasnip
         "rafamadriz/friendly-snippets" -- useful snippets
       }
     },
@@ -94,11 +87,6 @@ require("lazy").setup({
       'Wansmer/treesj',
       keys = { '<space>m', '<space>J', '<space>S' },
       dependencies = { 'nvim-treesitter/nvim-treesitter' },
-      config = function()
-        require('treesj').setup({
-          max_join_length = 8192,
-        })
-      end,
     },
 
     {
@@ -144,4 +132,3 @@ require("lazy").setup({
     },
   },
 })
-

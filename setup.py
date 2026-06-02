@@ -60,6 +60,7 @@ nvim_config_path = os.path.join(home_directory, ".config/nvim")
 tmux_config_path = os.path.join(home_directory, ".config/tmux")
 restart_keybinds_path = os.path.join(home_directory, "restart_keybinds.sh")
 fix_homerow_mods = os.path.join(home_directory, "fix_homerow_mods_temporarily.sh")
+ghostty_config_path = os.path.join(home_directory, ".config/ghostty/config.ghostty")
 stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 editor = "nvim"
 
@@ -98,7 +99,7 @@ def setup_groups():
             print(f"User is already in the '{group}' group.")
 
 
-def install_packages():
+def install_dnf_and_flatpak_packages():
     try:
         # Get the list of installed packages using `dnf list installed`
         installed_packages = subprocess.check_output(
@@ -167,6 +168,7 @@ def sync_files():
         "kanata_configs/restart_keybinds.sh": restart_keybinds_path,
         "kanata_configs/stop_keybinds.sh": stop_keybinds_path,
         "fix_homerow_mods_temporarily.sh": fix_homerow_mods,
+        "./config.ghostty": ghostty_config_path,
     }
 
     for src, dest in config_files.items():
@@ -306,8 +308,8 @@ def install_ghostty():
         print("Ghostty is already installed")
         return
     print("Installing Ghostty")
-    run_command('dnf copr enable pgdev/ghostty')
-    run_command('dnf install ghostty')
+    run_command('sudo dnf copr enable scottames/ghostty')
+    run_command('sudo dnf install ghostty -y')
 
 
 def install_minikube():
@@ -349,7 +351,7 @@ def main():
     sync_files()
 
     if args.install or args.all:
-        install_packages()
+        install_dnf_and_flatpak_packages()
         compile_nvim_spell()
 
     if args.all:
@@ -367,6 +369,7 @@ def main():
         setup_homerow_mods()
         install_terraform()
         install_rust()
+        install_ghostty()
 
     print("Setup completed successfully!")
 
