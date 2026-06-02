@@ -86,7 +86,7 @@ vim.lsp.enable('rust_analyzer')
 
 vim.lsp.config('ts_ls', {
   cmd = { 'typescript-language-server', '--stdio' },
-  filetypes = { 'javascript', 'typescript' },
+  filetypes = { 'javascript', 'typescript', "javascriptreact", "typescriptreact" },
   root_markers = { 'package.json' },
   capabilities = capabilities,
   on_attach = on_attach
