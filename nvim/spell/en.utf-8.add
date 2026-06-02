@@ -125,3 +125,10 @@ http
 https
 bashrc
 vimrc
+nvim
+tsserver
+SDL2
+libgit2
+renderer
+VSCode
+minimalistic
