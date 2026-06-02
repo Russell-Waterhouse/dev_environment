@@ -3,7 +3,6 @@ require('config.core.options')
 require('config.core.remap')
 require('config.core.macros')
 
-require('config.after.lualine')
 require('config.after.telescope')
 require('config.after.treesitter')
 require('config.after.comment')

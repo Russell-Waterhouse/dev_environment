@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- no bottom status bar
+opt.laststatus = 0
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true

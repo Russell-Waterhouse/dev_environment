@@ -31,12 +31,6 @@ require("lazy").setup({
       opts = {},
     },
 
-    -- Bottom status bar
-    {
-      'nvim-lualine/lualine.nvim',
-      dependencies = { 'nvim-tree/nvim-web-devicons' },
-    },
-
     -- Telescope: fuzzy finder
     {
       'nvim-telescope/telescope.nvim',
