@@ -18,13 +18,24 @@ require("lazy").setup({
     },
 
     -- Treesitter: Better highlighting
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+    },
 
     -- grubbox theme
-    { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = {} },
+    {
+      "ellisonleao/gruvbox.nvim",
+      priority = 1000,
+      config = true,
+      opts = {},
+    },
 
     -- Bottom status bar
-    { 'nvim-lualine/lualine.nvim',dependencies = { 'nvim-tree/nvim-web-devicons' } },
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
 
     -- Telescope: fuzzy finder
     {
