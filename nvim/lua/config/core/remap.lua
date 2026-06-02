@@ -46,7 +46,6 @@ keymap.set("n", "<leader>cs", ":setlocal spell spelllang=en_us<CR>")
 -- window management
 keymap.set("n", "<leader>V", "<C-w>v") -- leader V split vertically
 keymap.set("n", "<leader>H", "<C-w>s") -- leader H split horizontally
-keymap.set("n", "<leader>sx", ":close<CR>") -- leader sx close current split window
 keymap.set("n", "<leader>l", "<C-w>l") -- leader l = move to right split window
 keymap.set("n", "<leader>h", "<C-w>h") -- leader h = move to left split window
 keymap.set("n", "<leader>j", "<C-w>j") -- leader j = move to bottom split window
@@ -67,3 +66,6 @@ keymap.set("n", "<leader>e", ":Oil --float<CR>")
 
 -- format arround paragraph to be 80 chars or less
 keymap.set("n", "<leader>q", "gqap")
+
+-- format document with lua
+keymap.set("n", "<leader>fd", function() vim.lsp.buf.format() end,  { desc = "Format document" })

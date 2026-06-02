@@ -93,6 +93,8 @@ alias vim='nvim'
 
 # e - short for edit
 alias e='nvim $(fzf --preview "bat --color=always {}")'
+# ff - short for "find file" (same as nvim)
+alias ff='nvim $(fzf --preview "bat --color=always {}")'
 
 fe() {
   local file
