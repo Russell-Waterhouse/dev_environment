@@ -340,6 +340,11 @@ def install_rust():
     run_command("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh")
 
 
+def install_treesitter_dependency():
+    # Required for treesitter to work properly in neovim
+    run_command("cargo install --locked tree-sitter-cli")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -369,6 +374,7 @@ def main():
         setup_homerow_mods()
         install_terraform()
         install_rust()
+        install_treesitter_dependency()
         install_ghostty()
 
     print("Setup completed successfully!")
