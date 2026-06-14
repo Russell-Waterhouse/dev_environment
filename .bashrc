@@ -165,6 +165,8 @@ alias dn="docker compose down"
 alias qp="query --perplexity"
 alias qg="query --google"
 
+alias oof='sudo $(history -p !!)'
+
 # start a terminal with a fun little ascii art drawing
 cat ~/.ascii-art/iron_ring.txt
 
