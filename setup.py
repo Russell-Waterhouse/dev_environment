@@ -217,7 +217,7 @@ def setup_shortcuts():
 
     # super+shift+return for opening ~ in the file explorer
     run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Home Folder'")
-    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'xdg-open ~'")
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'xdg-open /home/russ'")
     run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super><Shift>Return'")
 
 
@@ -404,7 +404,6 @@ def main():
         setup_shortcuts()
         install_cursor()
 
-    # setup_shortcuts()  # TODO: Remove
     print("Setup completed successfully!")
 
 
