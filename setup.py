@@ -202,6 +202,25 @@ def set_up_workspaces():
         run_command(f"gsettings set \"org.gnome.desktop.wm.keybindings\" \"move-to-workspace-{i}\" \"['<Super><Shift>{i}']\"")
 
 
+def setup_shortcuts():
+    """Setup keyboard shortcuts"""
+    # Super+q for close window instead of alt+f4
+    run_command("gsettings set org.gnome.desktop.wm.keybindings close \"['<Super>q']\"")
+
+    # Setup slots for custom shortcuts
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \"[ '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/' ]\"")
+
+    # super+return for opening ghostty
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Ghostty'")
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'ghostty'")
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>Return'")
+
+    # super+shift+return for opening ~ in the file explorer
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Home Folder'")
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'xdg-open ~'")
+    run_command("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super><Shift>Return'")
+
+
 def disable_key_binding_that_fucks_up_my_monitors():
     # Normally, super+p allows you to change if you mirror or join your displays
     # however, if you hit it by accident, it resets your monitor join settings,
@@ -345,8 +364,7 @@ def install_treesitter_dependency():
     run_command("cargo install --locked tree-sitter-cli")
 
 
-# TODO: I have no idea if this works, I just wanted to document somewhere that
-# there is a way to install cursor with a script.
+# TODO: Finish this next time I'm setting up a new machine.
 def install_cursor():
     run_command("curl -LO https://api2.cursor.sh/updates/download/golden/linux-x64-rpm/cursor/")
     print("I never finished the install cursor script. Guess you (future Russell) needs to finish that now")
@@ -383,8 +401,10 @@ def main():
         install_rust()
         install_treesitter_dependency()
         install_ghostty()
+        setup_shortcuts()
         install_cursor()
 
+    # setup_shortcuts()  # TODO: Remove
     print("Setup completed successfully!")
 
 
