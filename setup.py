@@ -319,7 +319,7 @@ def install_minikube():
     print("Installing minikube")
     run_command("curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm")
     run_command("sudo rpm -Uvh minikube-latest.x86_64.rpm")
-    run_command("rm  minikube-latest.x86_64.rpm")
+    run_command("rm minikube-latest.x86_64.rpm")
 
 
 def install_terraform():
@@ -345,6 +345,14 @@ def install_treesitter_dependency():
     run_command("cargo install --locked tree-sitter-cli")
 
 
+# TODO: I have no idea if this works, I just wanted to document somewhere that
+# there is a way to install cursor with a script.
+def install_cursor():
+    run_command("curl -LO https://api2.cursor.sh/updates/download/golden/linux-x64-rpm/cursor/")
+    print("I never finished the install cursor script. Guess you (future Russell) needs to finish that now")
+    # run_command("rm cursor-*.rpm")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -357,7 +365,6 @@ def main():
 
     if args.install or args.all:
         install_dnf_and_flatpak_packages()
-        compile_nvim_spell()
 
     if args.all:
         set_environment_variables()
@@ -376,6 +383,7 @@ def main():
         install_rust()
         install_treesitter_dependency()
         install_ghostty()
+        install_cursor()
 
     print("Setup completed successfully!")
 
