@@ -62,6 +62,7 @@ restart_keybinds_path = os.path.join(home_directory, "restart_keybinds.sh")
 fix_homerow_mods = os.path.join(home_directory, "fix_homerow_mods_temporarily.sh")
 ghostty_config_path = os.path.join(home_directory, ".config/ghostty/config.ghostty")
 stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
+kanata_config_path = os.path.join(home_directory, ".config/systemd/user/kanata.service")
 editor = "nvim"
 
 # Git configuration settings
@@ -169,6 +170,7 @@ def sync_files():
         "kanata_configs/stop_keybinds.sh": stop_keybinds_path,
         "fix_homerow_mods_temporarily.sh": fix_homerow_mods,
         "./config.ghostty": ghostty_config_path,
+        "kanata_configs/kanata.service": kanata_config_path,
     }
 
     for src, dest in config_files.items():
@@ -295,9 +297,19 @@ def setup_homerow_mods():
         print("Home Row Mods with Kanata are already set up")
         return
 
+    # Pre-release required: tap-hold-opposite-hand and defhands (timeless opposite-hand
+    # homerow mods) shipped in v1.12; latest stable (v1.11.0) does not include them.
+    kanata_version = "v1.12.0-prerelease-2"
+
     print("Installing Home Row Mods with Kanata")
-    run_command('sudo wget --directory-prefix /usr/local/bin https://github.com/jtroo/kanata/releases/download/v1.7.0/kanata')
-    run_command('sudo chmod +x /usr/local/bin/kanata')
+    run_command('mkdir -p /tmp/kanata-install')
+    run_command(
+        f'sudo wget -O /tmp/kanata-install/kanata.zip '
+        f'https://github.com/jtroo/kanata/releases/download/{kanata_version}/linux-binaries-x64.zip'
+    )
+    run_command('sudo unzip -o /tmp/kanata-install/kanata.zip -d /tmp/kanata-install')
+    run_command('sudo install -m 755 /tmp/kanata-install/kanata_linux_x64 /usr/local/bin/kanata')
+    run_command('rm -rf /tmp/kanata-install')
     run_command('mkdir -p /home/russ/.config/kanata')
     run_command('cp kanata_configs/config.kbd /home/russ/.config/kanata/config.kbd')
 
@@ -410,3 +422,4 @@ def main():
 # Run the script
 if __name__ == "__main__":
     main()
+
