@@ -89,12 +89,6 @@ require("lazy").setup({
     },
 
     {
-      'Wansmer/treesj',
-      keys = { '<space>m', '<space>J', '<space>S' }, -- TODO: replace superJ with something not similar to window management
-      dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    },
-
-    {
       'stevearc/oil.nvim',
       opts = {},
       -- Optional dependencies

@@ -167,6 +167,9 @@ alias qg="query --google"
 
 alias oof='sudo $(history -p !!)'
 
+alias b='just b'
+alias i='just i'
+
 # start a terminal with a fun little ascii art drawing
 cat ~/.ascii-art/iron_ring.txt
 
