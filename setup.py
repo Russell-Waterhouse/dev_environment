@@ -416,6 +416,7 @@ def main():
         setup_shortcuts()
         install_cursor()
 
+    setup_homerow_mods()
     print("Setup completed successfully!")
 
 
