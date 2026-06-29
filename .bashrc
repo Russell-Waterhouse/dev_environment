@@ -4,7 +4,11 @@
 
 . "$HOME/.cargo/env"
 
-GOPATH=$HOME/go  PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+GOPATH=$HOME/go
+PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+export ODIN_ROOT=$HOME/bin/odin-linux-amd64-nightly+2026-06-08
+PATH=$PATH:$HOME/bin/odin-linux-amd64-nightly+2026-06-08/
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
