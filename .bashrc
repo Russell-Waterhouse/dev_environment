@@ -174,6 +174,10 @@ alias oof='sudo $(history -p !!)'
 alias b='just b'
 alias i='just i'
 
+
+alias contexts='kubectl config get-contexts'
+alias context='kubectl config current-context'
+
 # start a terminal with a fun little ascii art drawing
 cat ~/.ascii-art/iron_ring.txt
 
