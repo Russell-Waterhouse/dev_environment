@@ -63,6 +63,7 @@ fix_homerow_mods = os.path.join(home_directory, "fix_homerow_mods_temporarily.sh
 ghostty_config_path = os.path.join(home_directory, ".config/ghostty/config.ghostty")
 stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 kanata_config_path = os.path.join(home_directory, ".config/systemd/user/kanata.service")
+opencode_config_path = os.path.join(home_directory, ".config/opencode")
 editor = "nvim"
 
 # Git configuration settings
@@ -171,6 +172,7 @@ def sync_files():
         "fix_homerow_mods_temporarily.sh": fix_homerow_mods,
         "./config.ghostty": ghostty_config_path,
         "kanata_configs/kanata.service": kanata_config_path,
+        "opencode": opencode_config_path,
     }
 
     for src, dest in config_files.items():
@@ -416,7 +418,7 @@ def main():
         setup_shortcuts()
         install_cursor()
 
-    print("Setup completed successfully!")
+    print("\nSetup completed successfully!")
 
 
 # Run the script

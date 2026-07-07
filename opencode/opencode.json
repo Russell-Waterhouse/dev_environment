@@ -1,0 +1,32 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "rm *": "deny",
+      "grep *": "allow",
+      "docker build *": "allow",
+      "just *": "allow",
+      "pwd": "allow",
+      "tar": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "docker ps": "allow",
+      "cat *": "allow",
+      "find *": "allow",
+      "echo *": "allow",
+      "docker inspect *": "allow",
+      "docker rm *": "allow",
+      "sleep *": "allow",
+      "xargs *": "allow",
+      "git diff *": "allow",
+      "git status": "allow",
+      "pnpm run build": "allow",
+      "pnpm install": "allow",
+      "pnpm exec tsc *": "allow",
+      "npx tsc *": "allow",
+      "sort": "allow",
+      "npx jest *": "allow"
+    }
+  }
+}
