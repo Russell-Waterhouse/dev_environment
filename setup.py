@@ -385,6 +385,10 @@ def install_cursor():
     # run_command("rm cursor-*.rpm")
 
 
+def install_opencode():
+    run_command("curl -fsSL https://opencode.ai/install | bash")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -418,6 +422,7 @@ def main():
         setup_shortcuts()
         install_cursor()
 
+    install_opencode()
     print("\nSetup completed successfully!")
 
 
