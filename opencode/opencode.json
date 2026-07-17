@@ -26,7 +26,11 @@
       "pnpm exec tsc *": "allow",
       "npx tsc *": "allow",
       "sort": "allow",
-      "npx jest *": "allow"
+      "npx jest *": "allow",
+      "cargo check *": "allow",
+      "cargo test *": "allow",
+      "carg doc *": "allow",
+      "git log *": "allow"
     }
   }
 }

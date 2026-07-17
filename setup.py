@@ -421,8 +421,8 @@ def main():
         install_ghostty()
         setup_shortcuts()
         install_cursor()
+        install_opencode()
 
-    install_opencode()
     print("\nSetup completed successfully!")
 
 
