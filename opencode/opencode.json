@@ -30,7 +30,9 @@
       "cargo check *": "allow",
       "cargo test *": "allow",
       "carg doc *": "allow",
-      "git log *": "allow"
+      "git log *": "allow",
+      "ls *": "allow",
+      "mkdir *": "allow"
     }
   }
 }
