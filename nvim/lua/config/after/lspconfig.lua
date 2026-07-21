@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 local on_attach = function(client, bufnr)
   opts.buffer = bufnr
   opts.desc = "Show LSP references"
-  keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+  keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
   opts.desc = "Go to declaration"
   keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
