@@ -256,6 +256,20 @@ def setup_docker_desktop():
     run_command(" rm -rf /tmp/docker-desktop-x86_64.rpm")
 
 
+def rm_docker_desktop():
+    print("Removing Docker Desktop and related packages...")
+    run_command_no_check("sudo systemctl stop docker-desktop")
+    run_command_no_check("sudo dnf remove -y docker-desktop")
+    run_command_no_check("sudo dnf remove -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
+    run_command_no_check("sudo rm -f /etc/yum.repos.d/docker-ce.repo")
+    print("Docker Desktop removed.")
+
+
+def reinstall_docker_desktop():
+    rm_docker_desktop()
+    setup_docker_desktop()
+
+
 def install_k8s_lens():
     if os.path.exists("/usr/bin/lens-desktop"):
         print("Lens desktop is already installed")
@@ -394,10 +408,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--install", help="Install DNF Packages", action="store_true")
     parser.add_argument("-a", "--all", help="Run full setup", action="store_true")
+    parser.add_argument("-f", "--force-update", help="Force of apps that do not update themeselves", action="store_true")
+
     args = parser.parse_args()
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
     sync_files()
+
+    if args.force_update:
+        reinstall_docker_desktop()
 
     if args.install or args.all:
         install_dnf_and_flatpak_packages()
