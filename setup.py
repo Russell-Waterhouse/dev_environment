@@ -64,6 +64,7 @@ ghostty_config_path = os.path.join(home_directory, ".config/ghostty/config.ghost
 stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 kanata_config_path = os.path.join(home_directory, ".config/systemd/user/kanata.service")
 opencode_config_path = os.path.join(home_directory, ".config/opencode")
+docker_desktop_install_path = "/opt/docker-desktop"
 editor = "nvim"
 
 # Git configuration settings
@@ -240,7 +241,6 @@ def setup_tpm():
 
 
 def setup_docker_desktop():
-    docker_desktop_install_path = "/opt/docker-desktop"
     if os.path.exists(docker_desktop_install_path):
         print("Docker desktop is already installed!")
         return
@@ -262,6 +262,7 @@ def rm_docker_desktop():
     run_command_no_check("sudo dnf remove -y docker-desktop")
     run_command_no_check("sudo dnf remove -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
     run_command_no_check("sudo rm -f /etc/yum.repos.d/docker-ce.repo")
+    run_command_no_check(f"sudo rm -rf {docker_desktop_install_path}")
     print("Docker Desktop removed.")
 
 
