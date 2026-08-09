@@ -32,7 +32,12 @@
       "carg doc *": "allow",
       "git log *": "allow",
       "ls *": "allow",
-      "mkdir *": "allow"
+      "mkdir *": "allow",
+      "rg *": "allow",
+      "wc *": "allow",
+      "sed *": "allow",
+      "sort *": "allow",
+      "uniq *": "allow"
     }
   }
 }
