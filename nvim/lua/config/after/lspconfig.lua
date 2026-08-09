@@ -8,6 +8,8 @@ local on_attach = function(client, bufnr)
 
   opts.desc = "Go to declaration"
   keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+  keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts) -- go to declaration
+  keymap.set("n", "<leader>gd", vim.lsp.buf.declaration, opts) -- go to declaration
 
   opts.desc = "Show LSP definitions"
   keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
