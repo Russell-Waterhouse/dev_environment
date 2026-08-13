@@ -45,7 +45,7 @@ dnf_packages = [
     "luarocks",  # Needed for nvim
     "valgrind",
     "btop",
-    "clang"
+    "clang"  # Needed for Odin
 ]
 
 flatpak_packages = [
@@ -404,6 +404,17 @@ def install_opencode():
     run_command("curl -fsSL https://opencode.ai/install | bash")
 
 
+def install_odin():
+    if run_command_no_check('which odin') == 0:
+        print("odin is already installed")
+        return
+    print("Installing Odin")
+    run_command("mkdir -p /tmp/odin")
+    run_command("wget --output-document /tmp/odin/odin.tar.gz https://github.com/odin-lang/Odin/releases/download/dev-2026-07a/odin-linux-amd64-dev-2026-07a.tar.gz")
+    run_command("tar xzf /tmp/odin/odin.tar.gz -C ~/bin")
+    run_command("rm -rf /tmp/odin")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -442,6 +453,7 @@ def main():
         setup_shortcuts()
         install_cursor()
         install_opencode()
+    install_odin()
 
     print("\nSetup completed successfully!")
 
