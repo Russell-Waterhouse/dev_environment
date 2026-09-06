@@ -152,7 +152,6 @@ export NVM_DIR="$HOME/.nvm"
 
 alias open='xdg-open'
 alias fabric='~/repos/fabric/client/fabric'
-alias t='tmux'
 alias ta='tmux attach'
 
 # Show the current git branch in the terminal prompt
@@ -174,6 +173,7 @@ alias oof='sudo $(history -p !!)'
 
 alias b='just b'
 alias i='just i'
+alias t='just t'
 
 
 alias contexts='kubectl config get-contexts'
