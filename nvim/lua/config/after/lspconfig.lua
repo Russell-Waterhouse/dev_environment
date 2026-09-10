@@ -115,3 +115,11 @@ vim.lsp.config('pylsp', {
   }
 })
 vim.lsp.enable('pylsp')
+
+vim.lsp.config('jqls', {
+  cmd = { 'jq-lsp' },
+  filetypes = { 'json' },
+  capabilities = capabilities,
+  on_attach = on_attach
+})
+vim.lsp.enable('jqls')

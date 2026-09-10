@@ -67,3 +67,6 @@ keymap.set("n", "<leader>q", "gqap")
 
 -- format document with lua
 keymap.set("n", "<leader>fd", function() vim.lsp.buf.format() end,  { desc = "Format document" })
+
+-- format JSON by piping whole file through jq
+keymap.set("n", "<leader>fj", ":%!jq .<CR>", { desc = "Format JSON with jq" })
