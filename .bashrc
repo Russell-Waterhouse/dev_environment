@@ -171,11 +171,15 @@ alias qg="query --google"
 
 alias oof='sudo $(history -p !!)'
 
-# aliases for build, install, test, debug
+# aliases for build, install, test, debug, clear
 alias b='just b'
 alias i='just i'
 alias t='just t'
 alias d='just d'
+alias c='clear'
+alias cb='clear && just b'
+alias ci='clear && just i'
+alias ct='clear && just t'
 
 
 alias contexts='kubectl config get-contexts'
