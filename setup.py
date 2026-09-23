@@ -404,6 +404,14 @@ def install_opencode():
     run_command("curl -fsSL https://opencode.ai/install | bash")
 
 
+def install_zed():
+    if (run_command_no_check('which zed') == 0):
+        print("Zed is already installed")
+        return
+    print("Installing Zed")
+    run_command("curl -f https://zed.dev/install.sh | sh")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -442,7 +450,7 @@ def main():
         setup_shortcuts()
         install_cursor()
         install_opencode()
-
+        install_zed()
     print("\nSetup completed successfully!")
 
 
