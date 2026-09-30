@@ -419,7 +419,7 @@ def install_gh_cli():
         return
     print("installing gh")
     run_command("sudo dnf install dnf5-plugins")
-    run_command("sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo")
+    run_command("sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo --overwrite")
     run_command("sudo dnf install gh")
 
 
@@ -469,4 +469,3 @@ def main():
 # Run the script
 if __name__ == "__main__":
     main()
-
