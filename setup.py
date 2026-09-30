@@ -45,7 +45,8 @@ dnf_packages = [
     "luarocks",  # Needed for nvim
     "valgrind",
     "btop",
-    "clang"
+    "clang",
+    "shellcheck",
 ]
 
 flatpak_packages = [
@@ -412,6 +413,16 @@ def install_zed():
     run_command("curl -f https://zed.dev/install.sh | sh")
 
 
+def install_gh_cli():
+    if (run_command_no_check('which gh') == 0):
+        print("gh already installed")
+        return
+    print("installing gh")
+    run_command("sudo dnf install dnf5-plugins")
+    run_command("sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo")
+    run_command("sudo dnf install gh")
+
+
 # Main function to execute the steps
 def main():
     parser = argparse.ArgumentParser()
@@ -451,6 +462,7 @@ def main():
         install_cursor()
         install_opencode()
         install_zed()
+        install_gh_cli()
     print("\nSetup completed successfully!")
 
 
