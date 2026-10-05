@@ -1,0 +1,55 @@
+---
+description: Core coding standards
+alwaysApply: true
+---
+# Coding Standards
+## 1. Use Assertions
+All my repos should have a function like `logErrorAndSendMSTeamsMessage`.
+Things that should never happen should use this as an assertion as follows.
+```
+if (condition) {
+  logErrorAndSendMSTeamsMessage(log, `condition <describe condition here> failed`);
+  // handle error correctly here, by returning early, throwing an exception, returning 500, whatever is appropriate.
+}
+```
+## 2. Error-Free/Warning-Free build/compile/linting/static analysis
+All of my repos use `just b` to do a complete build, static analysis, and unit test.
+This should run successfully without any warnings or errors after all changes.
+## 3. Unit Test Pure Functions
+When you can write pure functions that don't do any IO (no disk, no network, no
+display to screen), favour writing those, and add comprehensive unit tests for
+them. These unit tests should never require any mocks.
+## 4. Integration Test Functions that do IO
+If there is a pattern for integration testing already, follow that pattern and
+add integration tests for functions that do IO. This should require no mocks
+most of the time, and one or two mocks in very rare conditions.
+If there isn't a pattern for integration testing already in the repo, then the
+user hasn't made a decision about that yet, and you should not add integration tests.
+## 5. Log
+My repos should all have functions like `logInfo` and `logError`. Use them
+everywhere that a branch is taken.
+```
+if (value.length === 0) {
+  logInfo(log, `Value had no elements in the array`);
+  return false;
+}
+logInfo(log, `Value had ${value.length} elements`);
+// continue processing value here
+```
+Be sure not to log anything that could be PII or PHI.
+## 6. Record all bugs you see
+If at any point in writing code/running code you see a bug, even if it's not related to
+what you're doing, run `uuidgen`, and make a note of it in a file called
+`bugs_<uuid>.md` in the repo root. Then, continue with your task.
+## 7. Check return values of all non-void functions
+If it's a value that requires error handling, handle the error. If it's a value
+that should always be something expected, assert on it. Either way, log something
+about the result.
+## 8. War against complexity
+If a change could be a hundred lines, and you've changed 250, stop and re-assess.
+If a decision made in the past was bad and is making things hard, stop, run `uuidgen`, write a
+file called `foundation_fix_required_<uuid>.md` and put the details in there.
+If you're just choosing a more complicated solution for no benefit, stop and
+implement the simpler solution instead.
+If the more complicated solution is better, run `uuidgen`, and add a file called
+`complexity_justification_<uuid>.md` and explain your decision.

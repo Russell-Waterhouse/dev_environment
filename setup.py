@@ -66,6 +66,7 @@ stop_keybinds_path = os.path.join(home_directory, "stop_keybinds.sh")
 kanata_config_path = os.path.join(home_directory, ".config/systemd/user/kanata.service")
 opencode_config_path = os.path.join(home_directory, ".config/opencode")
 cursor_agents_path = os.path.join(home_directory, ".cursor/agents")
+cursor_rules_path = os.path.join(home_directory, ".cursor/rules")
 cursor_skills_path = os.path.join(home_directory, ".cursor/skills")
 docker_desktop_install_path = "/opt/docker-desktop"
 editor = "nvim"
@@ -178,6 +179,7 @@ def sync_files():
         "kanata_configs/kanata.service": kanata_config_path,
         "opencode": opencode_config_path,
         "cursor/agents": cursor_agents_path,
+        "cursor/rules": cursor_rules_path,
         "cursor/skills": cursor_skills_path,
     }
 
