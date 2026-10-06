@@ -41,7 +41,6 @@ dnf_packages = [
     "just",
     "helm",
     "libubsan",
-    "gnome-terminal",  # Needed for docker-desktop
     "luarocks",  # Needed for nvim
     "valgrind",
     "btop",
@@ -68,7 +67,6 @@ opencode_config_path = os.path.join(home_directory, ".config/opencode")
 cursor_agents_path = os.path.join(home_directory, ".cursor/agents")
 cursor_rules_path = os.path.join(home_directory, ".cursor/rules")
 cursor_skills_path = os.path.join(home_directory, ".cursor/skills")
-docker_desktop_install_path = "/opt/docker-desktop"
 editor = "nvim"
 
 # Git configuration settings
@@ -247,37 +245,6 @@ def setup_tpm():
         run_command("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
 
 
-def setup_docker_desktop():
-    if os.path.exists(docker_desktop_install_path):
-        print("Docker desktop is already installed!")
-        return
-
-    run_command("sudo dnf -y install dnf-plugins-core")
-    run_command("sudo dnf config-manager addrepo --overwrite --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo")
-    run_command("sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
-    run_command("wget --output-document /tmp/docker-desktop-x86_64.rpm https://desktop.docker.com/linux/main/amd64/docker-desktop-x86_64.rpm")
-    # sleep for 10 seconds to allow wget to finish the download.
-    # I can't figure out why this isn't synchronous, but I have things to do.
-    time.sleep(10)
-    run_command("sudo dnf install -y /tmp/docker-desktop-x86_64.rpm")
-    run_command(" rm -rf /tmp/docker-desktop-x86_64.rpm")
-
-
-def rm_docker_desktop():
-    print("Removing Docker Desktop and related packages...")
-    run_command_no_check("sudo systemctl stop docker-desktop")
-    run_command_no_check("sudo dnf remove -y docker-desktop")
-    run_command_no_check("sudo dnf remove -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
-    run_command_no_check("sudo rm -f /etc/yum.repos.d/docker-ce.repo")
-    run_command_no_check(f"sudo rm -rf {docker_desktop_install_path}")
-    print("Docker Desktop removed.")
-
-
-def reinstall_docker_desktop():
-    rm_docker_desktop()
-    setup_docker_desktop()
-
-
 def install_k8s_lens():
     if os.path.exists("/usr/bin/lens-desktop"):
         print("Lens desktop is already installed")
@@ -305,6 +272,44 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
 EOF""")
     run_command("sudo yum install -y kubectl")
+
+
+def install_k3s():
+    """Install a host-native one-node Kubernetes cluster via k3s (no VM)."""
+    if subprocess.run("which k3s", shell=True, check=False).returncode == 0:
+        print("k3s is already installed")
+        return
+
+    print("Installing k3s (host-native single-node Kubernetes)")
+    run_command("sudo dnf install -y container-selinux")
+    run_command(
+        'curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644" sh -'
+    )
+
+    kube_dir = os.path.join(home_directory, ".kube")
+    kube_config = os.path.join(kube_dir, "config")
+    run_command(f"mkdir -p {kube_dir}")
+    if not os.path.exists(kube_config):
+        print(f"Copying k3s kubeconfig to {kube_config}")
+        run_command(f"cp /etc/rancher/k3s/k3s.yaml {kube_config}")
+        run_command(f"chown {user}:{user} {kube_config}")
+    else:
+        print(f"{kube_config} already exists; leaving it unchanged")
+
+    if subprocess.run("systemctl is-active --quiet firewalld", shell=True, check=False).returncode == 0:
+        print("firewalld is active; opening Kubernetes API port 6443")
+        run_command("sudo firewall-cmd --permanent --add-port=6443/tcp")
+        run_command("sudo firewall-cmd --reload")
+    else:
+        print("firewalld is not active; skipping API port rule")
+
+    run_command("kubectl config use-context default")
+    result = subprocess.run("kubectl get nodes", shell=True, check=False)
+    if result.returncode == 0:
+        print("k3s cluster is reachable via kubectl get nodes")
+    else:
+        print("Warning: kubectl get nodes failed; try: k3s kubectl get nodes")
+        run_command_no_check("k3s kubectl get nodes")
 
 
 def install_az_cli():
@@ -367,16 +372,6 @@ def install_ghostty():
     run_command('sudo dnf install ghostty -y')
 
 
-def install_minikube():
-    if (run_command_no_check('which minikube') == 0):
-        print("Minikube is already installed")
-        return
-    print("Installing minikube")
-    run_command("curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm")
-    run_command("sudo rpm -Uvh minikube-latest.x86_64.rpm")
-    run_command("rm minikube-latest.x86_64.rpm")
-
-
 def install_terraform():
     if (run_command_no_check('which terraform') == 0):
         print('terraform is already installed')
@@ -434,15 +429,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--install", help="Install DNF Packages", action="store_true")
     parser.add_argument("-a", "--all", help="Run full setup", action="store_true")
-    parser.add_argument("-f", "--force-update", help="Force of apps that do not update themeselves", action="store_true")
 
     args = parser.parse_args()
     # copy files must be run first because other commands will try to modify
     # .bashrc such as installing fd
     sync_files()
-
-    if args.force_update:
-        reinstall_docker_desktop()
 
     if args.install or args.all:
         install_dnf_and_flatpak_packages()
@@ -454,11 +445,9 @@ def main():
         set_up_workspaces()
         disable_key_binding_that_fucks_up_my_monitors()
         setup_tpm()
-        setup_docker_desktop()
         install_kubectl()
         install_k8s_lens()
         install_az_cli()
-        install_minikube()
         setup_homerow_mods()
         install_terraform()
         install_rust()
@@ -469,6 +458,7 @@ def main():
         install_opencode()
         install_zed()
         install_gh_cli()
+    install_k3s()
     print("\nSetup completed successfully!")
 
 
