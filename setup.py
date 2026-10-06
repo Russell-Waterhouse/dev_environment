@@ -283,7 +283,7 @@ def install_k3s():
     print("Installing k3s (host-native single-node Kubernetes)")
     run_command("sudo dnf install -y container-selinux")
     run_command(
-        'curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644" sh -'
+        'curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644" sh - --docker'
     )
 
     kube_dir = os.path.join(home_directory, ".kube")
@@ -421,7 +421,15 @@ def install_gh_cli():
     print("installing gh")
     run_command("sudo dnf install dnf5-plugins")
     run_command("sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo --overwrite")
-    run_command("sudo dnf install gh")
+    run_command("sudo dnf install -y gh")
+
+
+def install_docker():
+    if run_command_no_check('which docker') == 0:
+        print("docker allready installed")
+        return
+    print("Installing docker")
+    run_command("sudo dnf install -y docker-cli containerd")
 
 
 # Main function to execute the steps
@@ -458,6 +466,7 @@ def main():
         install_opencode()
         install_zed()
         install_gh_cli()
+    install_docker()
     install_k3s()
     print("\nSetup completed successfully!")
 
