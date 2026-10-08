@@ -466,8 +466,8 @@ def main():
         install_opencode()
         install_zed()
         install_gh_cli()
-    install_docker()
-    install_k3s()
+        install_docker()
+        install_k3s()
     print("\nSetup completed successfully!")
 
 
