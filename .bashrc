@@ -143,6 +143,7 @@ alias psa="ps auxf"
 
 # docker commands
 alias dockerup='sudo systemctl start docker.service'
+alias k3sdown='sudo systemctl stop k3s'
 
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
