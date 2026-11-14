@@ -143,6 +143,9 @@ alias psa="ps auxf"
 
 # docker commands
 alias dockerup='sudo systemctl start docker.service'
+alias dockerdown='sudo systemctl stop docker.service'
+alias k3sup='sudo systemctl start k3s'
+alias k3sstart='sudo systemctl start k3s'
 alias k3sdown='sudo systemctl stop k3s'
 
 # Node version manager
