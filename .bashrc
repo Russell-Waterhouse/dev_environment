@@ -176,11 +176,14 @@ alias b='just b'
 alias i='just i'
 alias t='just t'
 alias d='just d'
+alias r='just r'
 alias c='clear'
 alias cb='clear && just b'
 alias ci='clear && just i'
 alias ct='clear && just t'
 
+# GDB frontend
+alias gf='~/repos/personal/gf/gf2'
 
 alias contexts='kubectl config get-contexts'
 alias context='kubectl config current-context'

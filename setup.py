@@ -56,6 +56,7 @@ flatpak_packages = [
 user = "russ"
 home_directory = f"/home/{user}"
 bashrc_path = os.path.join(home_directory, ".bashrc")
+gdbinit_path = os.path.join(home_directory, ".gdbinit")
 ascii_art_path = os.path.join(home_directory, ".ascii-art")
 nvim_config_path = os.path.join(home_directory, ".config/nvim")
 tmux_config_path = os.path.join(home_directory, ".config/tmux")
@@ -169,6 +170,7 @@ def sync_files():
     # Example paths for the configuration files
     config_files = {
         ".bashrc": bashrc_path,
+        ".gdbinit": gdbinit_path,
         ".ascii-art": ascii_art_path,
         "nvim": nvim_config_path,  # This is a directory
         "tmux": tmux_config_path,  # This is a directory
