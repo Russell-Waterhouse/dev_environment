@@ -47,6 +47,7 @@ dnf_packages = [
     "btop",
     "clang",
     "shellcheck",
+    "ansible",
 ]
 
 flatpak_packages = [
